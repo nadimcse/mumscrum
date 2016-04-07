@@ -1,5 +1,7 @@
 package com.mum.scrum.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 public class Sprint extends Persistent implements Serializable {
 
     private long id;
+    @NotEmpty
     private String name;
     private Date startDate;
     private Date endDate;

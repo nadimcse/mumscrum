@@ -1,6 +1,9 @@
 package com.mum.scrum.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,9 +19,11 @@ import java.util.List;
 public class User extends Persistent implements Serializable {
 
     private long id;
+    @NotEmpty(message = "error.first.name.is.empty")
     private String firstName;
     private String lastName;
     private String password;
+    @NotEmpty
     private String email;
    // private Project project;
     private Role role;

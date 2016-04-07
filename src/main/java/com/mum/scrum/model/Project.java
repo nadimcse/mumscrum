@@ -1,5 +1,7 @@
 package com.mum.scrum.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.List;
 @Table(name = "project")
 public class Project extends Persistent implements Serializable {
     private long id;
+    @NotEmpty
     private String name;
     private Date startDate;
     private Date endDate;
