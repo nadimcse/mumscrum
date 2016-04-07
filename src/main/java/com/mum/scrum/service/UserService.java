@@ -1,0 +1,21 @@
+package com.mum.scrum.service;
+
+import com.mum.scrum.model.User;
+
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: nadim
+ * Date: 4/6/16
+ * Time: 7:57 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public interface UserService {
+
+    User getUser(long usrId);
+    void persistUser(User user);
+    void deleteUser(User user);
+    void validateUser(User user);
+
+}
