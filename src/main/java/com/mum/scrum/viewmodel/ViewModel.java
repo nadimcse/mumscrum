@@ -12,13 +12,13 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class ViewModel {
-      Map<String, List<Object>> dataMap = new HashMap<>();
+      Map<String, Object> dataMap = new HashMap<>();
 
-    public Map<String, List<Object>> getDataMap() {
+    public Map<String, Object> getDataMap() {
         return dataMap;
     }
 
-    public void setDataMap(Map<String, List<Object>> dataMap) {
+    public void setDataMap(Map<String, Object> dataMap) {
         this.dataMap = dataMap;
     }
 }

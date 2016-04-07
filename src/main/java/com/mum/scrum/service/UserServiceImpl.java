@@ -2,9 +2,12 @@ package com.mum.scrum.service;
 
 import com.mum.scrum.dao.UserDao;
 import com.mum.scrum.model.User;
+import com.mum.scrum.viewmodel.PermissionModel;
+import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,5 +42,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void validateUser(User user) {
         ///TODO
+    }
+
+    @Override
+    public ViewModel handleGetUser(long userId) {
+        ///validate user
+        User user = getUser(userId);
+        ViewModel viewModel = new ViewModel();
+        viewModel.getDataMap().put("user", user);
+        viewModel.getDataMap().put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
+
+        return viewModel;
     }
 }

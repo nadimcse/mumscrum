@@ -1,6 +1,7 @@
 package com.mum.scrum.service;
 
 import com.mum.scrum.model.User;
+import com.mum.scrum.viewmodel.ViewModel;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface UserService {
     void persistUser(User user);
     void deleteUser(User user);
     void validateUser(User user);
+    ViewModel handleGetUser(long userId);
 
 }

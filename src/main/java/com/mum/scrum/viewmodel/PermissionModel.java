@@ -7,17 +7,17 @@ package com.mum.scrum.viewmodel;
  * Time: 5:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface PermissionModel {
+public class PermissionModel {
 
-    boolean viewUser();
-    boolean createUser();
-    boolean updateUser();
-    boolean deleteUser();
+    private static String[] SYS_ADMIN_PERMISSION = new String[] {"canViewUser", "canCreateUser", "canDeleteUser", "canUpdateUser"};
+    private static String[] PRODUCT_OWNER_PERMISSION = new String[] {"canViewProject", "canCreateProject", "canDeleteProject", "canUpdateProject"};
 
-    boolean viewSprint();
-    boolean createSprint();
-    boolean updateSprint();
-    boolean deleteSprint();
+    public static String[] getSystemAdminPermission() {
+        return SYS_ADMIN_PERMISSION;
+    }
+    public static String[] getProductOwnerPermission() {
+        return PRODUCT_OWNER_PERMISSION;
+    }
 
 
 }

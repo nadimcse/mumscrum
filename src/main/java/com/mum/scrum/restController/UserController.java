@@ -4,6 +4,7 @@ import com.mum.scrum.dao.UserDao;
 import com.mum.scrum.model.Message;
 import com.mum.scrum.model.User;
 import com.mum.scrum.service.UserService;
+import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,13 +33,13 @@ public class UserController {
         return msg;
     }
 
-    @RequestMapping(value = "/getuser/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable("userId") long userId) {
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<ViewModel> getUser(@PathVariable("userId") long userId) {
         ///TODO has role & permission
         //userService.validateUser();
 
-        User user =  userService.getUser(userId);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        ViewModel viewModel =  userService.handleGetUser(userId);
+        return new ResponseEntity<ViewModel>(viewModel, HttpStatus.OK);
 
     }
 
