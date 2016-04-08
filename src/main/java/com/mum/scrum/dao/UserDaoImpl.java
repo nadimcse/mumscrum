@@ -91,6 +91,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUser(String email) {
+        Query query = em.createQuery("SELECT u FROM User u where u.email = :email")
+                .setParameter("email", email);
+        List<User> resultList =  query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        }
+        return resultList.get(0);
+    }
+
+    @Override
     public List<User> getAllUsers() {
         Query query = em.createQuery("SELECT u FROM User u");
         return  query.getResultList();

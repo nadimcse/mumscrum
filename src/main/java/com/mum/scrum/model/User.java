@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user")
-public class User extends Persistent implements Serializable {
+public class User extends Persistent implements Serializable { //TODO create composite primary key
 
     private long id;
     @NotEmpty(message = "error.first.name.is.empty")

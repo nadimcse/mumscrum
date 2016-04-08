@@ -15,6 +15,7 @@ public interface UserDao {
 
     void saveJpaContact();
     User getUser(long usrId);
+    User getUser(String email);
     List<User> getAllUsers();
     void persistUser(User user);
     void deleteUser(User user);

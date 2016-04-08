@@ -1,14 +1,14 @@
 package com.mum.scrum.service;
 
 import com.mum.scrum.dao.UserDao;
+import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.PermissionModel;
 import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,7 +51,20 @@ public class UserServiceImpl implements UserService {
         ViewModel viewModel = new ViewModel();
         viewModel.getDataMap().put("user", user);
         viewModel.getDataMap().put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
-
         return viewModel;
+    }
+
+
+    @Override
+    public boolean doUserValidation(User user) {
+
+        if (StringUtils.isEmpty(user.getPassword())) {
+            return false;
+        }
+        User existedUser = userDao.getUser(user.getEmail());
+        if (existedUser == null) {
+            return true;
+        }
+        return false;
     }
 }
