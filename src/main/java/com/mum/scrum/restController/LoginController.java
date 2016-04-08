@@ -26,7 +26,7 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@Valid @RequestBody Login login, BindingResult bindResult) {
+    public ResponseEntity<Object> loginUser(@Valid @RequestBody Login login, BindingResult bindResult) {
 
         if (bindResult.hasErrors()) {
             StringBuilder builder = new StringBuilder();

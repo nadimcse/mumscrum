@@ -46,7 +46,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/createuser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user, BindingResult bindResult) {
 
         //form validation
@@ -73,6 +73,33 @@ public class UserController {
         // userService.loadDashBoard(user); //token
 
         String successMsg = "User has been created successfully!";
+
+        //  HttpHeaders headers = new HttpHeaders();
+        //   headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Object>(successMsg, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUser(@Valid @RequestBody User user, BindingResult bindResult) {
+
+        //form validation
+        if (bindResult.hasErrors()) {
+            StringBuilder builder = new StringBuilder();
+            List<FieldError> errors = bindResult.getFieldErrors();
+            for (FieldError error : errors) {
+                builder.append(error.getField() + " : " + error.getDefaultMessage());
+            }
+
+            return new ResponseEntity<Object>(builder, HttpStatus.BAD_REQUEST);
+        }
+
+        ////password field is handled seperately
+        if (!StringUtils.isEmpty(user.getPassword())) {
+            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+        }
+
+        userService.persistUser(user);
+        String successMsg = "User has been updated successfully!";
 
         //  HttpHeaders headers = new HttpHeaders();
         //   headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
