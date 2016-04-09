@@ -19,8 +19,10 @@ public interface UserService {
     void persistUser(User user);
     void deleteUser(User user);
     void validateUser(User user);
-    ViewModel handleGetUser(long userId);
+    Map<String, Object> handleGetUser(long userId);
     Map<String, Object> validateUsrCreation(User user);
+    void updateUser(long userId, User user);
+
 
 
 

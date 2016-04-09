@@ -49,7 +49,9 @@ public class UserController {
         ///TODO has role & permission
         //userService.validateUser();
 
-        ViewModel viewModel = userService.handleGetUser(userId);
+        Map<String, Object> dataMap = userService.handleGetUser(userId);
+        ViewModel viewModel = new ViewModel();
+        viewModel.setDataMap(dataMap);
         return new ResponseEntity<ViewModel>(viewModel, HttpStatus.OK);
 
     }
@@ -90,7 +92,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.PUT)
-    public ResponseEntity<ViewModel> updateUser(@Valid @RequestBody User user, BindingResult bindResult) {
+    public ResponseEntity<ViewModel> updateUser(@PathVariable("id") long id, @Valid @RequestBody User user, BindingResult bindResult) {
         ViewModel viewModel = new ViewModel();
         //form validation
         if (bindResult.hasErrors()) {
@@ -108,7 +110,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        userService.persistUser(user);
+        userService.updateUser(id, user);
+
         String successMsg = "User has been updated successfully!";
         viewModel.getDataMap().put("message", successMsg);
         return new ResponseEntity<>(viewModel, HttpStatus.OK);

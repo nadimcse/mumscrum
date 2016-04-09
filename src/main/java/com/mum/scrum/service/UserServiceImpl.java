@@ -1,6 +1,7 @@
 package com.mum.scrum.service;
 
 import com.mum.scrum.dao.UserDao;
+import com.mum.scrum.model.Role;
 import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.model.User;
@@ -55,13 +56,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ViewModel handleGetUser(long userId) {
+    public Map<String, Object> handleGetUser(long userId) {
         ///validate user
+        Map<String, Object> map = new HashMap<>();
         User user = getUser(userId);
-        ViewModel viewModel = new ViewModel();
-        viewModel.getDataMap().put("user", user);
-        viewModel.getDataMap().put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
-        return viewModel;
+        map.put("user", user);
+        map.put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
+        return map;
     }
 
 
@@ -88,5 +89,18 @@ public class UserServiceImpl implements UserService {
             return map;
         }
         return map;   //TODO return better way to validation error
+    }
+
+    @Override
+    public void updateUser(long userId, User user) {
+        User userObj = userDao.getUser(userId);
+        Role role = new Role();
+        role.setId(user.getRole().getId());
+        userObj.setEmail(user.getEmail());
+        userObj.setFirstName(user.getFirstName());
+        userObj.setLastName(user.getLastName());
+        userObj.setRole(role);
+
+        userDao.persistUser(user);
     }
 }
