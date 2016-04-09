@@ -3,8 +3,11 @@ package com.mum.scrum.service;
 import com.mum.scrum.dao.UserDao;
 import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.Login;
+import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Created by 984609 on 4/8/2016.
@@ -13,7 +16,10 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
+
+    @Autowired
+    private DashBoardLoaderFactory dashBoardLoaderFactory;
 
     @Override
     public boolean authenticateLogin(Login login) {
@@ -25,5 +31,12 @@ public class LoginServiceImpl implements LoginService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Object> handleDashBoard(Login login) {
+        //DashBoardLoaderFactory dashBoardLoader = new DashBoardLoaderFactoryImpl();
+        return dashBoardLoaderFactory.loadDashboard(login);
+
     }
 }

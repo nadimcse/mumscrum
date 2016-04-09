@@ -1,15 +1,22 @@
 package com.mum.scrum.config;
 
+import com.mum.scrum.service.DashBoardLoaderFactory;
+import com.mum.scrum.service.DashBoardLoaderFactoryImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +28,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.mum.scrum")
+@PropertySource("classpath:config.properties")
 public class ScrumConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -34,4 +42,16 @@ public class ScrumConfig extends WebMvcConfigurerAdapter {
         messageSource.setBasename("messages");
         return messageSource;
     }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+   /* @Bean
+    public DashBoardLoaderFactory getDashBoardLoaderFactory() {
+        return new DashBoardLoaderFactoryImpl();
+    }
+*/
+
 }

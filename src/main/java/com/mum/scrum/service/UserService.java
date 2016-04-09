@@ -4,6 +4,8 @@ import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.ViewModel;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nadim
@@ -18,7 +20,7 @@ public interface UserService {
     void deleteUser(User user);
     void validateUser(User user);
     ViewModel handleGetUser(long userId);
-    boolean doUserValidation(User user);
+    Map<String, Object> validateUsrCreation(User user);
 
 
 

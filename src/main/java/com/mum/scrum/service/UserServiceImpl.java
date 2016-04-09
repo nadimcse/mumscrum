@@ -1,14 +1,22 @@
 package com.mum.scrum.service;
 
 import com.mum.scrum.dao.UserDao;
+import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.PermissionModel;
 import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +27,8 @@ import org.springframework.util.StringUtils;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+    @Autowired
+    Environment environment;
 
     @Autowired
     private UserDao userDao;
@@ -55,16 +65,28 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public boolean doUserValidation(User user) {
+    public Map<String, Object> validateUsrCreation(User user) {
 
-        if (StringUtils.isEmpty(user.getPassword())) {
-            return false;
+        Map<String, Object> map = new HashMap<>();
+
+        ///check permission
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String token = request.getParameter("token");
+
+        if (!StringUtils.isEmpty(token)) {
+            String[] split = token.split("\\|");
+            if (!Utility.hasPermission("canCreateUser", Integer.valueOf(split[1]))) {
+                map.put("message", "Unauthorized access!!!");
+                return map;
+            }
         }
+
+        //is user already exist
         User existedUser = userDao.getUser(user.getEmail());
         if (existedUser == null) {
-            return true;
+            map.put("message", "User already exists!!!");
+            return map;
         }
-        return false;
+        return map;   //TODO return better way to validation error
     }
 }

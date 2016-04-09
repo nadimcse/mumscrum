@@ -1,5 +1,8 @@
 package com.mum.scrum.viewmodel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nadim
@@ -8,6 +11,12 @@ package com.mum.scrum.viewmodel;
  * To change this template use File | Settings | File Templates.
  */
 public class PermissionModel {
+
+    public static Map<Integer, String[]> permissionMap = new HashMap<>();
+    static {
+        permissionMap.put(1, getSystemAdminPermission());
+        permissionMap.put(2, getProductOwnerPermission());
+    }
 
     private static String[] SYS_ADMIN_PERMISSION = new String[] {"canViewUser", "canCreateUser", "canDeleteUser", "canUpdateUser"};
     private static String[] PRODUCT_OWNER_PERMISSION = new String[] {"canViewProject", "canCreateProject", "canDeleteProject", "canUpdateProject"};
