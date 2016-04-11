@@ -1,5 +1,6 @@
 package com.mum.scrum.restController;
 
+import com.mum.scrum.service.FormValidatorService;
 import com.mum.scrum.service.LoginService;
 import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.Login;
@@ -31,6 +32,9 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private FormValidatorService formValidatorService;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResponseEntity<Void> getLoginUser() {
         return new ResponseEntity<>(HttpStatus.OK);
@@ -39,11 +43,7 @@ public class LoginController {
         @RequestMapping(value = "/login", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE} , method = RequestMethod.POST)
     public ResponseEntity<ViewModel> loginUser(@Valid @RequestBody Login login, BindingResult bindResult) {
         if (bindResult.hasErrors()) {
-            List<FieldError> errors = bindResult.getFieldErrors();
-            List<String> errorList = new ArrayList<>();
-            for (FieldError error : errors) {
-                errorList.add(error.getDefaultMessage());
-            }
+            List<String> errorList = formValidatorService.doFormValidation(bindResult);
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, errorList), HttpStatus.BAD_REQUEST);
         }
         if (!loginService.authenticateLogin(login)) {
