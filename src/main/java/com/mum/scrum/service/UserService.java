@@ -4,6 +4,7 @@ import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.ViewModel;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,8 +21,10 @@ public interface UserService {
     void deleteUser(User user);
     void validateUser(User user);
     Map<String, Object> handleGetUser(long userId);
-    Map<String, Object> validateUsrCreation(User user);
+    List<String> validateUsrCreation(User user);
+    List<String> validateUsrUpdate(User user);
     void updateUser(long userId, User user);
+
 
 
 

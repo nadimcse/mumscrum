@@ -9,14 +9,19 @@ import com.mum.scrum.viewmodel.PermissionModel;
 import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +32,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     Environment environment;
@@ -60,16 +66,18 @@ public class UserServiceImpl implements UserService {
         ///validate user
         Map<String, Object> map = new HashMap<>();
         User user = getUser(userId);
+        user.setPassword(null);
         map.put("user", user);
         map.put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
         return map;
     }
 
 
-    public Map<String, Object> validateUsrCreation(User user) {
+    public List<String> validateUsrCreation(User user) {
 
-        Map<String, Object> map = new HashMap<>();
-
+        if (StringUtils.isEmpty(user.getPassword())) {
+            return Arrays.asList("Password is empty.");
+        }
         ///check permission
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String token = request.getParameter("token");
@@ -77,18 +85,37 @@ public class UserServiceImpl implements UserService {
         if (!StringUtils.isEmpty(token)) {
             String[] split = token.split("\\|");
             if (!Utility.hasPermission("canCreateUser", Integer.valueOf(split[1]))) {
-                map.put("message", "Unauthorized access!!!");
-                return map;
+                return Arrays.asList("Unauthorized access!!!");
             }
         }
 
         //is user already exist
         User existedUser = userDao.getUser(user.getEmail());
-        if (existedUser == null) {
-            map.put("message", "User already exists!!!");
-            return map;
+        if (existedUser != null) {
+            return Arrays.asList("User already exists!!!");
         }
-        return map;   //TODO return better way to validation error
+        return Arrays.asList();   //TODO return better way to validation error
+    }
+
+    @Override
+    public List<String> validateUsrUpdate(User user) {
+         Map<String, Object> map = new HashMap<>();
+        ///check permission
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String token = request.getParameter("token");
+
+        if (!StringUtils.isEmpty(token)) {
+            String[] split = token.split("\\|");
+            if (!Utility.hasPermission("canUpdateUser", Integer.valueOf(split[1]))) {
+                return Arrays.asList("Unauthorized access!!!");
+            }
+        }
+
+        ////password field is handled seperately
+        if (!StringUtils.isEmpty(user.getPassword())) {
+            return Arrays.asList("Should not contain password!!!");
+        }
+        return Arrays.asList();
     }
 
     @Override
@@ -101,6 +128,6 @@ public class UserServiceImpl implements UserService {
         userObj.setLastName(user.getLastName());
         userObj.setRole(role);
 
-        userDao.persistUser(user);
+        userDao.persistUser(userObj);
     }
 }

@@ -1,6 +1,7 @@
 package com.mum.scrum.restController;
 
 import com.mum.scrum.service.LoginService;
+import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.viewmodel.ViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,23 +38,24 @@ public class LoginController {
 
         @RequestMapping(value = "/login", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE} , method = RequestMethod.POST)
     public ResponseEntity<ViewModel> loginUser(@Valid @RequestBody Login login, BindingResult bindResult) {
-        ViewModel viewModel = new ViewModel();
         if (bindResult.hasErrors()) {
-            StringBuilder builder = new StringBuilder();
             List<FieldError> errors = bindResult.getFieldErrors();
-            for (FieldError error : errors ) {
-                builder.append(error.getField() + " : " + error.getDefaultMessage());
+            List<String> errorList = new ArrayList<>();
+            for (FieldError error : errors) {
+                errorList.add(error.getDefaultMessage());
             }
-            viewModel.getDataMap().put("errorMessage", builder.toString());
-            return new ResponseEntity<>(viewModel, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, errorList), HttpStatus.BAD_REQUEST);
         }
         if (!loginService.authenticateLogin(login)) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Utility.populateViewModel(
+                    Utility.ERROR_STATUS_CODE, Arrays.asList("forbidden")),
+                    HttpStatus.FORBIDDEN);
         }
         ///TODO  load dashboard
         Map<String, Object> map  = loginService.handleDashBoard(login);
-        viewModel.setDataMap(map);
 
-        return new ResponseEntity<>(viewModel, HttpStatus.OK);
+        return new ResponseEntity<>(Utility.populateViewModel(
+                Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successfully logged in"), map),
+                HttpStatus.OK);
     }
 }

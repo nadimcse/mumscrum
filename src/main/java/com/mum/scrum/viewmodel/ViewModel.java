@@ -1,5 +1,6 @@
 package com.mum.scrum.viewmodel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,25 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class ViewModel {
-      Map<String, Object> dataMap = new HashMap<>();
+    private int statusCode;
+    private List<String> statusMessage = new ArrayList<>();
+    Map<String, Object> dataMap = new HashMap<>();
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public List<String> getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(List<String> statusMessage) {
+        this.statusMessage = statusMessage;
+    }
 
     public Map<String, Object> getDataMap() {
         return dataMap;

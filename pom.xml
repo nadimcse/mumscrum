@@ -11,7 +11,7 @@
 
     <properties>
         <java.version>1.7</java.version>
-        <spring.version>4.0.3.RELEASE</spring.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
         <cglib.version>2.2.2</cglib.version>
         <jetty.version>8.1.14.v20131031</jetty.version>
     </properties>

@@ -1,5 +1,7 @@
 package com.mum.scrum.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -29,6 +31,7 @@ public class User extends Persistent implements Serializable { //TODO create com
     private Role role;
 
     @Id
+    @JsonIgnore
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
     public long getId() {

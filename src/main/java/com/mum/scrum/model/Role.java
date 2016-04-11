@@ -17,6 +17,15 @@ public class Role implements Serializable {
     private String name;
 ///use enum
 
+
+    public Role() {
+    }
+
+    public Role(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     @Column(name = "id")
   //  @GeneratedValue(strategy = GenerationType.AUTO)
