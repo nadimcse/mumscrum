@@ -32,7 +32,6 @@ public class User extends Persistent implements Serializable { //TODO create com
     private Role role;
 
     @Id
-    @JsonIgnore
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
     public long getId() {

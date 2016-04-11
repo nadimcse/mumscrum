@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<>();
         User user = getUser(userId);
         user.setPassword(null);
-        map.put("user", user);
+        map.put("userList", Arrays.asList(user));
         map.put("permission", PermissionModel.getProductOwnerPermission());//TODO add role to return permission
         return map;
     }

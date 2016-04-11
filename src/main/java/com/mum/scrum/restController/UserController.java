@@ -4,6 +4,7 @@ import com.mum.scrum.config.ScrumConfig;
 import com.mum.scrum.model.Message;
 import com.mum.scrum.model.Role;
 import com.mum.scrum.model.User;
+import com.mum.scrum.service.FormValidatorService;
 import com.mum.scrum.service.UserService;
 import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.ViewModel;
@@ -38,6 +39,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private FormValidatorService formValidatorService;
+
+    @Autowired
     private Environment env;
 
     @RequestMapping("/hello/{player}")
@@ -54,7 +58,6 @@ public class UserController {
     public ResponseEntity<ViewModel> getUser(@PathVariable("userId") long userId) {
 
         //Assume that anyone can view user info
-
         Map<String, Object> dataMap = userService.handleGetUser(userId);
         return new ResponseEntity<>(
                 Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successful"), dataMap),
@@ -66,15 +69,7 @@ public class UserController {
     public ResponseEntity<ViewModel> createUser(@Valid @RequestBody User user, BindingResult bindResult) {
         //form validation
         if (bindResult.hasErrors()) {
-            List<FieldError> errors = bindResult.getFieldErrors();
-            List<String> errorList = new ArrayList<>();
-            for (FieldError error : errors) {
-                errorList.add(error.getDefaultMessage());
-            }
-
-            if (StringUtils.isEmpty(user.getPassword())) {
-                errorList.add("password is empty.");
-            }
+            List<String> errorList = formValidatorService.doFormValidation(bindResult);
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, errorList), HttpStatus.BAD_REQUEST);
         }
 
@@ -87,7 +82,7 @@ public class UserController {
         userService.persistUser(user);
         user.setPassword(null);
         Map<String, Object> map = new HashMap<>();
-        map.put("user", user);
+        map.put("userList", Arrays.asList(user));
         //TODO to uri
         return new ResponseEntity<>(
                 Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("User has been created successfully!"), map),
@@ -104,11 +99,7 @@ public class UserController {
     public ResponseEntity<ViewModel> updateUser(@PathVariable("userId") long userId, @Valid @RequestBody User user, BindingResult bindResult) {
         //form validation
         if (bindResult.hasErrors()) {
-            List<FieldError> errors = bindResult.getFieldErrors();
-            List<String> errorList = new ArrayList<>();
-            for (FieldError error : errors) {
-                errorList.add(error.getDefaultMessage());
-            }
+            List<String> errorList = formValidatorService.doFormValidation(bindResult);
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, errorList), HttpStatus.BAD_REQUEST);
         }
 
@@ -124,7 +115,7 @@ public class UserController {
         user.setRole(new Role(user.getRole().getId(), user.getRole().getName()));
 
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("user", user);
+        dataMap.put("userList", Arrays.asList(user));
         return new ResponseEntity<>(Utility.populateViewModel(
                 Utility.SUCCESS_STATUS_CODE, Arrays.asList("User has been updated successfully!"), dataMap),
                 HttpStatus.OK);
