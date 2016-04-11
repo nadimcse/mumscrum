@@ -7,6 +7,8 @@ import com.mum.scrum.model.User;
 import com.mum.scrum.service.UserService;
 import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.ViewModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,8 @@ import java.util.*;
 @RestController
 public class UserController {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private UserService userService;
 
@@ -38,6 +42,8 @@ public class UserController {
 
     @RequestMapping("/hello/{player}")
     public Message message(@PathVariable String player) {
+
+        log.warn("logging....");
 
         // userDao.saveJpaContact();
         Message msg = new Message(player, "Hello " + player);
