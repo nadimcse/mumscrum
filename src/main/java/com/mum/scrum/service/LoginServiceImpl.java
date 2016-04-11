@@ -30,10 +30,9 @@ public class LoginServiceImpl implements LoginService {
             return false; //user not found
         }
 
-        System.out.println(user.getFirstName() + "..." + login.getPassword());
-//        if (user.getPassword().equals(login.getPassword())) {
-//            return true;
-//        }
+        if (user.getPassword().equals(login.getPassword())) {
+            return true;
+        }
         return true;
     }
 

@@ -37,7 +37,6 @@ public class Utility {
         Token token = new Token(role, timestamp, secretKey);
 
         if (!token.compareTokenSignature(realToken)) {
-            System.out.println("err...here2");
             return false;
         }
         return true;
