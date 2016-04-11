@@ -19,4 +19,5 @@ public interface UserDao {
     List<User> getAllUsers();
     void persistUser(User user);
     void deleteUser(User user);
+
 }

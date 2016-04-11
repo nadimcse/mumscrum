@@ -1,5 +1,6 @@
 package com.mum.scrum.dao;
 
+import com.mum.scrum.model.Role;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.User;
 import com.mum.scrum.model.UserStory;
@@ -49,37 +50,15 @@ public class UserDaoImpl implements UserDao {
 //        em.persist(project);
 //        System.out.println(".......");
 
-        UserStory userStory1 = new UserStory();
-        userStory1.setTitle("cc");
-        userStory1.setDescription("cc1");
-        // em.persist(userStory1);
+       Role role1 = new Role(1, "Sys admin");
+       Role role2 = new Role(2, "Product Owner");
+       Role role3 = new Role(3, "Scrum master");
+       Role role4 = new Role(4, "Developer");
 
-        Sprint sprint = new Sprint();
-        sprint.setName("dd");
-        //  em.persist(sprint);
-
-        userStory1.getSprints().add(sprint);
-        sprint.getUserStories().add(userStory1);
-
-//        List<UserStory> userStories = new ArrayList<>();
-//        userStories.add(userStory1);
-//        sprint.setUserStories(userStories);
-
-
-        em.persist(sprint);
-
-
-//        sprint = em.find(Sprint.class, sprint.getId());
-//        System.out.println(sprint.getUserStories().size() + "...........");
-                                                                                   //not workink in rewverse side
-//        List<Sprint> sprints = new ArrayList<>();
-//        sprints.add(sprint);
-//        userStory1.setSprints(sprints);
-//        em.persist(userStory1);
-//
-//
-        sprint = em.find(Sprint.class, sprint.getId());
-        System.out.println(sprint.getUserStories().size() + "...........");
+        em.persist(role1);
+        em.persist(role2);
+        em.persist(role3);
+        em.persist(role4);
 
 
     }

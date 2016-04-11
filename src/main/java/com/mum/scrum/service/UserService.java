@@ -24,6 +24,7 @@ public interface UserService {
     List<String> validateUsrCreation(User user);
     List<String> validateUsrUpdate(User user);
     void updateUser(long userId, User user);
+    void saveJpaContact();
 
 
 

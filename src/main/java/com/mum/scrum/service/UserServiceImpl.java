@@ -130,4 +130,9 @@ public class UserServiceImpl implements UserService {
 
         userDao.persistUser(userObj);
     }
+
+    @Override
+    public void saveJpaContact() {
+        userDao.saveJpaContact();
+    }
 }

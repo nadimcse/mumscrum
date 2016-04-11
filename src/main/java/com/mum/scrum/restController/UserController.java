@@ -1,6 +1,7 @@
 package com.mum.scrum.restController;
 
 import com.mum.scrum.config.ScrumConfig;
+import com.mum.scrum.dao.UserDao;
 import com.mum.scrum.model.Message;
 import com.mum.scrum.model.Role;
 import com.mum.scrum.model.User;
@@ -38,6 +39,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @Autowired
     private FormValidatorService formValidatorService;
 
@@ -48,6 +51,9 @@ public class UserController {
     public Message message(@PathVariable String player) {
 
         log.warn("logging....");
+
+        userService.saveJpaContact();
+
 
         // userDao.saveJpaContact();
         Message msg = new Message(player, "Hello " + player);
