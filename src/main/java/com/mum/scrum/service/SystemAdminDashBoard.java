@@ -1,6 +1,7 @@
 package com.mum.scrum.service;
 
 import com.mum.scrum.dao.UserDao;
+import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.viewmodel.PermissionModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,8 +35,13 @@ public class SystemAdminDashBoard implements DashBoard {
     @Override
     public Map<String, Object> populateData(Login login) {
         Map<String, Object> map = new HashMap<>();
+        List<User> userList = userDao.getAllUsers();
 
-        map.put("userList", userDao.getAllUsers());
+        for (User user : userList) {
+            user.setPassword(null);
+        }
+
+        map.put("userList", userList);
         map.put("token", tokenGeneratorService.generateToken(userDao.getUser(login.getEmail())));
         map.put("permission", PermissionModel.getSystemAdminPermission());
 
