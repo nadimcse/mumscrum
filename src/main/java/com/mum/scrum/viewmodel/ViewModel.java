@@ -1,5 +1,7 @@
 package com.mum.scrum.viewmodel;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Map;
 public class ViewModel {
     private int statusCode;
     private List<String> statusMessage = new ArrayList<>();
+    @JsonProperty("data")
     Map<String, Object> dataMap = new HashMap<>();
 
     public int getStatusCode() {

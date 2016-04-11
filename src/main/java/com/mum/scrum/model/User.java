@@ -28,6 +28,7 @@ public class User extends Persistent implements Serializable { //TODO create com
     @NotEmpty
     private String email;
    // private Project project;
+    @NotNull
     private Role role;
 
     @Id

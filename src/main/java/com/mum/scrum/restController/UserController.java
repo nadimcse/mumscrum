@@ -79,9 +79,12 @@ public class UserController {
         }
 
         userService.persistUser(user);
+        user.setPassword(null);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", user);
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("User has been created successfully!")),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("User has been created successfully!"), map),
                 HttpStatus.CREATED);
 
     }
