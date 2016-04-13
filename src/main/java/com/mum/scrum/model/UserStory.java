@@ -3,6 +3,7 @@ package com.mum.scrum.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserStory extends Persistent implements Serializable {
     private String description;
     @NotEmpty
     private String estimation;
+    @NotNull
     private Project project;
     private List<Sprint> sprints = new ArrayList<>();
     private List<LogTime> logTimes = new ArrayList<>();

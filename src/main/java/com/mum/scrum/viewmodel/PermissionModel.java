@@ -19,7 +19,8 @@ public class PermissionModel {
     }
 
     private static String[] SYS_ADMIN_PERMISSION = new String[] {"canViewUser", "canCreateUser", "canDeleteUser", "canUpdateUser"};
-    private static String[] PRODUCT_OWNER_PERMISSION = new String[] {"canViewProject", "canCreateProject", "canDeleteProject", "canUpdateProject"};
+    private static String[] PRODUCT_OWNER_PERMISSION = new String[] {"canViewProject", "canCreateProject", "canDeleteProject",
+            "canUpdateProject", "canCreateUserStory", "canUpdateUserStory", "canDeleteUserStory"};
 
     public static String[] getSystemAdminPermission() {
         return SYS_ADMIN_PERMISSION;
