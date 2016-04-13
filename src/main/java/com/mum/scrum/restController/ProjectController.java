@@ -60,6 +60,7 @@ public class ProjectController {
     @ResponseBody
     @RequestMapping(value = "/project/{projectId}", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.PUT)
     public ResponseEntity<ViewModel> updateUser(@PathVariable("projectId") long projectId, @Valid @RequestBody Project project, BindingResult bindResult) {
+
         //form validation
         if (bindResult.hasErrors()) {
             List<String> errorList = formValidatorService.doFormValidation(bindResult);

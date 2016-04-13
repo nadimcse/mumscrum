@@ -19,6 +19,7 @@ public interface ProjectDao {
     Project getProject(long projectId);
     void deleteProject(Project project);
     List<Project> getAllProjects();
+    List<Project> getProjects(long userId);
     List<Sprint> getAllSprints(long projectId);
     List<UserStory> getProductsBackLog();
     List<Project> getUserProjects(long userId);

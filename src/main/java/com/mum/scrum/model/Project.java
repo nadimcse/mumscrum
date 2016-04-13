@@ -1,5 +1,7 @@
 package com.mum.scrum.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -74,10 +76,12 @@ public class Project extends Persistent implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true)
+    @JsonIgnore
     public List<Sprint> getSprints() {
         return sprints;
     }
 
+    @JsonProperty
     public void setSprints(List<Sprint> sprints) {
         this.sprints = sprints;
     }

@@ -49,6 +49,15 @@ public class ProjectDaoImpl implements ProjectDao {
 
     @Override
     @SuppressWarnings("unchecked")
+    public List<Project> getProjects(long userId) {
+        Query query = em.createQuery("SELECT p FROM Project p where p.owner.id = :ownerId")
+                .setParameter("ownerId", userId);
+        List<Project> projects =   (List<Project>) query.getResultList();
+        return projects;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public List<Sprint> getAllSprints(long projectId) {
         Query query = em.createQuery("SELECT s FROM Sprint s where s.id = :projectId")
                 .setParameter("projectId", projectId);
