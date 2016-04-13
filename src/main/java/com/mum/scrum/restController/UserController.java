@@ -84,7 +84,6 @@ public class UserController {
         }
 
         userService.persistUser(user);
-        user.setPassword(null);
         Map<String, Object> map = new HashMap<>();
         map.put("userList", Arrays.asList(user));
         //TODO to uri
@@ -115,7 +114,6 @@ public class UserController {
 
         userService.updateUser(userId, user);
         user = userService.getUser(userId);
-        user.setPassword(null);
         user.setRole(new Role(user.getRole().getId(), user.getRole().getName()));
 
         Map<String, Object> dataMap = new HashMap<>();
