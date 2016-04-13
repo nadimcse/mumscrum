@@ -1,8 +1,8 @@
 package com.mum.scrum.dao;
 
+import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.UserStory;
-import org.apache.tools.ant.Project;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import java.util.List;
 public interface ProjectDao {
 
     void persistProject(Project project);
+    Project getProject(long projectId);
     void deleteProject(Project project);
     List<Project> getAllProjects();
     List<Sprint> getAllSprints(long projectId);

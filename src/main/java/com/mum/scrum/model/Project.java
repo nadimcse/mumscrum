@@ -27,6 +27,13 @@ public class Project extends Persistent implements Serializable {
     private User owner;
     private User managedBy;
 
+    public Project() {
+    }
+
+    public Project(long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

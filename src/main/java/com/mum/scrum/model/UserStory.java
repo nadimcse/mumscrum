@@ -1,5 +1,7 @@
 package com.mum.scrum.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,8 +21,11 @@ import java.util.List;
 public class UserStory extends Persistent implements Serializable {
 
     private long id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String description;
+    @NotEmpty
     private String estimation;
     private Project project;
     private List<Sprint> sprints = new ArrayList<>();

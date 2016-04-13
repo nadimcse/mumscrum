@@ -21,12 +21,19 @@ import java.util.List;
 public class Sprint extends Persistent implements Serializable {
 
     private long id;
-    @NotEmpty
+    //@NotEmpty
     private String name;
     private Date startDate;
     private Date endDate;
     private Project project;
     private List<UserStory> userStories = new ArrayList<>();
+
+    public Sprint() {
+    }
+
+    public Sprint(long id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")

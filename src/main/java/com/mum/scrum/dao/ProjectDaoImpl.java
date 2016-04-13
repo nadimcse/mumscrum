@@ -1,10 +1,9 @@
 package com.mum.scrum.dao;
 
+import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.UserStory;
-import org.apache.tools.ant.Project;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +27,13 @@ public class ProjectDaoImpl implements ProjectDao {
     public void persistProject(Project project) {
         em.persist(project);
     }
+
+    @Override
+    public Project getProject(long projectId) {
+        return em.find(Project.class, projectId);
+    }
+
+
 
     @Override
     public void deleteProject(Project project) {

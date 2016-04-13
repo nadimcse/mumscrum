@@ -31,6 +31,13 @@ public class User extends Persistent implements Serializable { //TODO create com
     @NotNull
     private Role role;
 
+    public User() {
+    }
+
+    public User(long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
