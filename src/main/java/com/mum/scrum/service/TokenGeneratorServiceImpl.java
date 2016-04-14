@@ -23,7 +23,8 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
     @Override
     public String generateToken(User user) {
-        Token token = new Token((int) user.getRole().getId(), getExpirationTimeValue(), environment.getProperty("token.secret.key"));
+        Token token = new Token((int) user.getRole().getId(), getExpirationTimeValue(),
+                environment.getProperty("token.secret.key"), user.getId());
         return token.generateToken();
     }
 

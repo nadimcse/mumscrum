@@ -30,11 +30,12 @@ public class Utility {
         String[] split = realToken.split("\\|");
         long timestamp = Long.valueOf(split[0]);
         int role = Integer.valueOf(split[1]);
+        long userId = Long.valueOf(split[2]);
         if (System.currentTimeMillis() > timestamp) {
             return false;
         }
 
-        Token token = new Token(role, timestamp, secretKey);
+        Token token = new Token(role, timestamp, secretKey, userId);
 
         if (!token.compareTokenSignature(realToken)) {
             return false;

@@ -12,14 +12,16 @@ import com.google.common.hash.Hashing;
  */
 public class Token {
     private int role;
+    private long userId;
     private long timestamp;
     private String secretKey;
 
 
-    public Token(int role, long timestamp, String secretKey) {
+    public Token(int role, long timestamp, String secretKey, long userId) {
         this.role = role;
         this.timestamp = timestamp;
         this.secretKey = secretKey;
+        this.userId = userId;
     }
 
     public Token(String realToken, String secretKey) {
@@ -27,6 +29,7 @@ public class Token {
         String[] split = realToken.split("|");
         this.timestamp = Long.valueOf(split[0]);
         this.role = Integer.valueOf(split[1]);
+        this.userId = Long.valueOf(split[2]);
         this.secretKey = secretKey;
 
 
@@ -53,6 +56,6 @@ public class Token {
 
     @Override
     public String toString() {
-        return timestamp + "|" + role;
+        return timestamp + "|" + role  + "|" +  userId;
     }
 }
