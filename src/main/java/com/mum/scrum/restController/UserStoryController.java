@@ -1,6 +1,7 @@
 package com.mum.scrum.restController;
 
 import com.mum.scrum.model.UserStory;
+import com.mum.scrum.model.UserStoryStatus;
 import com.mum.scrum.service.FormValidatorService;
 import com.mum.scrum.service.UserStoryService;
 import com.mum.scrum.utility.Utility;
@@ -42,6 +43,11 @@ public class UserStoryController {
         List<String> validations = userStoryService.validateUserStoryCreation(userStory);
         if (hasAnyLogicalError(validations)) {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
+        }
+
+        //add default role..
+        if (userStory.getUserStoryStatus() == null) {
+            userStory.setUserStoryStatus(new UserStoryStatus(1));
         }
         userStoryService.persistUserStory(userStory);
         Map<String, Object> map = new HashMap<>();

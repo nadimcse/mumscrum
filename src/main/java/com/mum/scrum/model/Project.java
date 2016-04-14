@@ -26,6 +26,7 @@ public class Project extends Persistent implements Serializable {
     private Date endDate;
     List<Sprint> sprints;
 //    private List<User> users;
+
     private User owner;
     private User managedBy;
 

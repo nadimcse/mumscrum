@@ -1,9 +1,6 @@
 package com.mum.scrum.dao;
 
-import com.mum.scrum.model.Role;
-import com.mum.scrum.model.Sprint;
-import com.mum.scrum.model.User;
-import com.mum.scrum.model.UserStory;
+import com.mum.scrum.model.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +56,16 @@ public class UserDaoImpl implements UserDao {
         em.persist(role2);
         em.persist(role3);
         em.persist(role4);
+
+        UserStoryStatus userStoryStatus1 = new UserStoryStatus(1, "TODO");
+        UserStoryStatus userStoryStatus2 = new UserStoryStatus(2, "INPROGRESS");
+        UserStoryStatus userStoryStatus3 = new UserStoryStatus(3, "DONE");
+        UserStoryStatus userStoryStatus4 = new UserStoryStatus(4, "STOPPED");
+
+        em.persist(userStoryStatus1);
+        em.persist(userStoryStatus2);
+        em.persist(userStoryStatus3);
+        em.persist(userStoryStatus4);
 
 
     }

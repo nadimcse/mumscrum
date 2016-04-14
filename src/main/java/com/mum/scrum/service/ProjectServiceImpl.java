@@ -4,6 +4,7 @@ import com.mum.scrum.dao.ProjectDao;
 import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.User;
+import com.mum.scrum.model.UserStory;
 import com.mum.scrum.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 984609 on 4/12/2016.
@@ -82,5 +81,22 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return Arrays.asList();
 
+    }
+
+    @Override
+    public List<String> validateProjectLoad(long projectId) {
+        return validatePermission("canViewProject");
+    }
+
+
+
+    @Override
+    public Map<String, Object> handleGetProject(long projectId) {
+        Map<String, Object> map = new HashMap<>();
+        Project project = projectDao.getProject(projectId);
+        map.put("projectList", project);
+        map.put("sprintList", projectDao.getAllSprints(projectId));
+        map.put("backlogList", projectDao.getAllTodoUserStory(projectId));
+        return map;
     }
 }

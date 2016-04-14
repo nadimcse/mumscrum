@@ -3,11 +3,13 @@ package com.mum.scrum.dao;
 import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.UserStory;
+import com.mum.scrum.model.UserStoryStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,5 +84,27 @@ public class ProjectDaoImpl implements ProjectDao {
         Query query = em.createQuery("SELECT u FROM UserStory u where u.id = :sprintId")
                 .setParameter("sprintId", sprintId);
         return  (List<UserStory>)query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserStory> getAllTodoUserStory(long projectId) {
+        Query query = em.createQuery("SELECT u FROM UserStory u where u.project.id = :projectId and u.userStoryStatus.id = :statusId")
+                .setParameter("projectId", projectId)
+                .setParameter("statusId", 1L);
+        List<UserStory> todoUserStories =  (List<UserStory>)query.getResultList();
+
+        List<UserStory> refinedBacklogs = new ArrayList<>();
+        for (UserStory userStory : todoUserStories) {
+            UserStory userStory1 = new UserStory();
+            userStory1.setId(userStory.getId());
+            userStory1.setTitle(userStory.getTitle());
+            userStory1.setDescription(userStory.getDescription());
+            userStory1.setEstimation(userStory.getEstimation());
+            userStory1.setProject(userStory.getProject());
+            refinedBacklogs.add(userStory1);
+        }
+
+        return refinedBacklogs;
     }
 }

@@ -24,6 +24,7 @@ public interface ProjectDao {
     List<UserStory> getProductsBackLog();
     List<Project> getUserProjects(long userId);
     List<UserStory> getAllUserStories(long sprintId);
+    List<UserStory> getAllTodoUserStory(long projectId);
 
 
 

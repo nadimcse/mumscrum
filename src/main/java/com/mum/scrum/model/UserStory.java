@@ -1,5 +1,6 @@
 package com.mum.scrum.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -24,12 +25,13 @@ public class UserStory extends Persistent implements Serializable {
     private long id;
     @NotEmpty
     private String title;
-    @NotEmpty
     private String description;
     @NotEmpty
     private String estimation;
     @NotNull
     private Project project;
+    private UserStoryStatus userStoryStatus;
+    @JsonIgnore
     private List<Sprint> sprints = new ArrayList<>();
     private List<LogTime> logTimes = new ArrayList<>();
 
@@ -93,5 +95,15 @@ public class UserStory extends Persistent implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_story_status_id")
+    public UserStoryStatus getUserStoryStatus() {
+        return userStoryStatus;
+    }
+
+    public void setUserStoryStatus(UserStoryStatus userStoryStatus) {
+        this.userStoryStatus = userStoryStatus;
     }
 }

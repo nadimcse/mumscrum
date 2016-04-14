@@ -48,7 +48,7 @@ public class LoginController {
         }
         if (!loginService.authenticateLogin(login)) {
             return new ResponseEntity<>(Utility.populateViewModel(
-                    Utility.ERROR_STATUS_CODE, Arrays.asList("forbidden")),
+                    Utility.NOT_LOGGED_IN_STATUS_CODE, Arrays.asList("forbidden")),
                     HttpStatus.FORBIDDEN);
         }
         ///TODO  load dashboard

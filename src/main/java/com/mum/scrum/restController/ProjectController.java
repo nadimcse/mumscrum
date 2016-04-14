@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,21 @@ public class ProjectController {
 
     @Autowired
     private FormValidatorService formValidatorService;
+
+    @RequestMapping(value = "/project/{projectId}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    public ResponseEntity<ViewModel> getUser(@PathVariable("projectId") long projectId) {
+
+
+        List<String> validations = projectService.validateProjectLoad(projectId);
+        if (hasAnyLogicalError(validations)) {
+            return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
+        }
+        Map<String, Object> dataMap = projectService.handleGetProject(projectId);
+        return new ResponseEntity<>(
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successful"), dataMap),
+                HttpStatus.OK);
+
+    }
 
     @RequestMapping(value = "/project", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public ResponseEntity<ViewModel> createProject(@Valid @RequestBody Project project, BindingResult bindResult) {
