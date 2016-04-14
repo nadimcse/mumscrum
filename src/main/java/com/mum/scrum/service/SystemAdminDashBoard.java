@@ -39,6 +39,7 @@ public class SystemAdminDashBoard implements DashBoard {
 
         map.put("userList", userList);
         map.put("token", tokenGeneratorService.generateToken(userDao.getUser(login.getEmail())));
+        map.put("individual", userDao.getUser(login.getEmail()));
         map.put("permission", PermissionModel.getSystemAdminPermission());
 
         return map;
