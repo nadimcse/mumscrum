@@ -45,6 +45,15 @@ public class UserServiceImpl implements UserService {
         return userDao.getUser(usrId);
     }
 
+    @Override
+    public User getUser(String email) {
+        return userDao.getUser(email);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
 
     @Override
     public void persistUser(User user) {

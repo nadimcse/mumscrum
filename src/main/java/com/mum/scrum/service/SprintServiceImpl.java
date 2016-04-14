@@ -12,9 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 984609 on 4/12/2016.
@@ -34,6 +32,11 @@ public class SprintServiceImpl implements SprintService {
     @Override
     public List<String> validateSprintCreation(Sprint sprint) {
         return validatePermission("canCreateSprint");
+    }
+
+    @Override
+    public List<String> validateSprintLoad(long sprintId) {
+        return validatePermission("canViewSprint");
     }
 
     @Override
@@ -65,5 +68,19 @@ public class SprintServiceImpl implements SprintService {
         }
         sprintDao.persist(sprintObj);
 
+    }
+
+    @Override
+    public List<Sprint> getAllSprints(long projectId) {
+        return sprintDao.getAllSprints(projectId);
+    }
+
+    @Override
+    public Map<String, Object> handleGetSprint(long sprintId) {
+        Map<String, Object> map = new HashMap<>();
+        Sprint sprint = sprintDao.getSprint(sprintId);
+        map.put("sprintList", Arrays.asList(sprint));
+        map.put("userStoryList", sprint.getUserStories());
+        return map;
     }
 }

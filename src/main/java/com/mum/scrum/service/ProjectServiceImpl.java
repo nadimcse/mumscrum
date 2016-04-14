@@ -31,6 +31,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> getProjectsByProductOwner(long userId) {
+        return projectDao.getProjectsByProductOwner(userId);
+    }
+
+    @Override
+    public List<Project> getProjectsByScrumMaster(long userId) {
+        return projectDao.getProjectsByScrumMaster(userId);
+    }
+
+    @Override
     public void updateProject(long projectId, Project project) {
         Project projectObj = projectDao.getProject(projectId);
 

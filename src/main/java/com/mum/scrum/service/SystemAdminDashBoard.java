@@ -27,7 +27,7 @@ public class SystemAdminDashBoard implements DashBoard {
     Environment environment;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private TokenGeneratorService tokenGeneratorService;
@@ -35,11 +35,11 @@ public class SystemAdminDashBoard implements DashBoard {
     @Override
     public Map<String, Object> populateData(Login login) {
         Map<String, Object> map = new HashMap<>();
-        List<User> userList = userDao.getAllUsers();
+        List<User> userList = userService.getAllUsers();
 
         map.put("userList", userList);
-        map.put("token", tokenGeneratorService.generateToken(userDao.getUser(login.getEmail())));
-        map.put("individual", userDao.getUser(login.getEmail()));
+        map.put("token", tokenGeneratorService.generateToken(userService.getUser(login.getEmail())));
+        map.put("individual", userService.getUser(login.getEmail()));
         map.put("permission", PermissionModel.getSystemAdminPermission());
 
         return map;

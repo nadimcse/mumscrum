@@ -23,10 +23,10 @@ import java.util.Map;
 public class ProductOwnerDashBoard implements DashBoard {
 
     @Autowired
-    private ProjectDao projectDao;
+    private ProjectService projectService;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private TokenGeneratorService tokenGeneratorService;
@@ -35,8 +35,8 @@ public class ProductOwnerDashBoard implements DashBoard {
     @Override
     public Map<String, Object> populateData(Login login) {
         Map<String, Object> dataMap = new HashMap<>();
-        User user = userDao.getUser(login.getEmail());
-        dataMap.put("projectList", projectDao.getProjects(user.getId()));
+        User user = userService.getUser(login.getEmail());
+        dataMap.put("projectList", projectService.getProjectsByProductOwner(user.getId()));
         dataMap.put("token", tokenGeneratorService.generateToken(user));
         dataMap.put("individual", user);
         dataMap.put("permission", PermissionModel.getProductOwnerPermission());

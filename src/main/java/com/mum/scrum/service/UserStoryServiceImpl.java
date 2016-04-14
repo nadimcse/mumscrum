@@ -45,11 +45,11 @@ public class UserStoryServiceImpl implements UserStoryService {
     @Override
     public void updateUserStory(long userStoryId, UserStory userStory) {
         UserStory userStoryObj = userStoryDao.getUserStory(userStoryId);
-        userStory.setTitle(userStory.getTitle());
-        userStory.setDescription(userStory.getDescription());
-        userStory.setEstimation(userStory.getEstimation());
+        userStoryObj.setTitle(userStory.getTitle());
+        userStoryObj.setDescription(userStory.getDescription());
+        userStoryObj.setEstimation(userStory.getEstimation());
         if (userStory.getProject() != null) {
-            userStory.setProject(new Project(userStory.getProject().getId()));
+            userStoryObj.setProject(new Project(userStory.getProject().getId()));
         }
 
         if (userStory.getSprints() != null) {
@@ -60,7 +60,7 @@ public class UserStoryServiceImpl implements UserStoryService {
             }
             userStoryObj.setSprints(sprints);
         }
-        userStoryDao.persistUserStory(userStory);
+        userStoryDao.persistUserStory(userStoryObj);
 
     }
 

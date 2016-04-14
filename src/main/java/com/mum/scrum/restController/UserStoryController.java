@@ -61,7 +61,7 @@ public class UserStoryController {
 
     @ResponseBody
     @RequestMapping(value = "/userstory/{userstoryId}", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.PUT)
-    public ResponseEntity<ViewModel> updateUserStory(@PathVariable("userStoryId") long userStoryId, @Valid @RequestBody UserStory userStory, BindingResult bindResult) {
+    public ResponseEntity<ViewModel> updateUserStory(@PathVariable("userstoryId") long userStoryId, @Valid @RequestBody UserStory userStory, BindingResult bindResult) {
         //form validation
         if (bindResult.hasErrors()) {
             List<String> errorList = formValidatorService.doFormValidation(bindResult);

@@ -17,6 +17,8 @@ import java.util.Map;
 public interface UserService {
 
     User getUser(long usrId);
+    User getUser(String email);
+    List<User> getAllUsers();
     void persistUser(User user);
     void deleteUser(User user);
     void validateUser(User user);

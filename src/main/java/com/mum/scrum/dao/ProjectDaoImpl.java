@@ -51,9 +51,17 @@ public class ProjectDaoImpl implements ProjectDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Project> getProjects(long userId) {
+    public List<Project> getProjectsByProductOwner(long userId) {
         Query query = em.createQuery("SELECT p FROM Project p where p.owner.id = :ownerId")
                 .setParameter("ownerId", userId);
+        List<Project> projects =   (List<Project>) query.getResultList();
+        return projects;
+    }
+
+    @Override
+    public List<Project> getProjectsByScrumMaster(long userId) {
+        Query query = em.createQuery("SELECT p FROM Project p where p.managedBy.id = :managedById")
+                .setParameter("managedById", userId);
         List<Project> projects =   (List<Project>) query.getResultList();
         return projects;
     }

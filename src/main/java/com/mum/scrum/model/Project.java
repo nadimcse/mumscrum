@@ -108,7 +108,7 @@ public class Project extends Persistent implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "managed_by_id")
     public User getManagedBy() {
         return managedBy;
     }

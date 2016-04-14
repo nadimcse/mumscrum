@@ -10,6 +10,8 @@ import java.util.Map;
  */
 public interface ProjectService {
     void persist(Project project);
+    List<Project> getProjectsByProductOwner(long userId);
+    List<Project> getProjectsByScrumMaster(long userId);
     void updateProject(long projectId, Project project);
     List<String> validateProjectCreation(Project project);
     List<String> validateProjectUpdate(Project project);
