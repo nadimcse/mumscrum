@@ -2,6 +2,7 @@ package com.mum.scrum.service;
 
 import com.mum.scrum.dao.SprintDao;
 import com.mum.scrum.dao.UserStoryDao;
+import com.mum.scrum.model.LogTime;
 import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
 import com.mum.scrum.model.UserStory;
@@ -68,8 +69,8 @@ public class UserStoryServiceImpl implements UserStoryService {
         Map<String, Object> map = new HashMap<>();
         UserStory userStory = userStoryDao.getUserStory(userstoryId);
         map.put("userStoryList", Arrays.asList(userStory));
-      //  map.put("sprintList", userStory.getSprints());
-      //  map.put("logTimeList", userStory.getLogTimes());
+        map.put("sprintList", populateSprintsOfUserStory(userStory));
+        map.put("logTimeList", populateLogTimesOfUserStory(userStory));
         return map;
     }
 
@@ -114,5 +115,37 @@ public class UserStoryServiceImpl implements UserStoryService {
         }
         return Arrays.asList();
 
+    }
+
+    ///do not add this in the interface
+    private List<Sprint> populateSprintsOfUserStory(UserStory userStory) {
+        List<Sprint> sprints = userStory.getSprints();
+        List<Sprint> newSprintList = new ArrayList<>();
+
+        for (Sprint sprint : sprints) {
+            Sprint sprintObj = new Sprint();
+            sprintObj.setProject(sprint.getProject());
+            sprintObj.setEndDate(sprint.getEndDate());
+            sprintObj.setStartDate(sprint.getStartDate());
+            sprintObj.setName(sprint.getName());
+
+            newSprintList.add(sprintObj);
+        }
+
+        return newSprintList;
+    }
+
+    private List<LogTime> populateLogTimesOfUserStory(UserStory userStory) {
+        List<LogTime> logTimes = userStory.getLogTimes();
+        List<LogTime> newLogTimeList = new ArrayList<>();
+
+        for (LogTime logTime : logTimes) {
+            LogTime logTimeObj = new LogTime();
+            logTimeObj.setLockedTime(logTime.getLockedTime());
+            logTimeObj.setUser(logTime.getUser());
+            newLogTimeList.add(logTimeObj);
+        }
+
+        return newLogTimeList;
     }
 }
