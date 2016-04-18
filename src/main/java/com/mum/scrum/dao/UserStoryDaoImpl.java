@@ -24,7 +24,7 @@ public class UserStoryDaoImpl implements UserStoryDao {
 
         em.persist(userStory);
 
-        if (userStory.getSprints() != null) {
+      /*  if (userStory.getSprints() != null) {
 
             for (Sprint sprintObj : userStory.getSprints()) {
                 Sprint sprintPersistObj = em.find(Sprint.class, sprintObj.getId());
@@ -36,7 +36,7 @@ public class UserStoryDaoImpl implements UserStoryDao {
                 em.persist(sprintPersistObj);
 
             }
-        }
+        }*/
     }
 
     @Override

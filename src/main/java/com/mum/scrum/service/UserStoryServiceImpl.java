@@ -1,5 +1,6 @@
 package com.mum.scrum.service;
 
+import com.mum.scrum.dao.SprintDao;
 import com.mum.scrum.dao.UserStoryDao;
 import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
@@ -27,9 +28,26 @@ public class UserStoryServiceImpl implements UserStoryService {
     @Autowired
     private UserStoryDao userStoryDao;
 
+    @Autowired
+    private SprintDao sprintDao;
+
     @Override
     public void persist(UserStory userStory) {
         userStoryDao.persist(userStory);
+
+        if (userStory.getSprints() != null) {
+
+            for (Sprint sprintObj : userStory.getSprints()) {
+                Sprint sprintPersistObj = sprintDao.getSprint(sprintObj.getId());
+                if (sprintPersistObj.getUserStories() == null) {
+                    sprintPersistObj.setUserStories(new ArrayList<UserStory>());
+                }
+
+                sprintPersistObj.getUserStories().add(userStory);
+                sprintDao.persist(sprintPersistObj);
+
+            }
+        }
     }
 
     @Override
@@ -52,15 +70,22 @@ public class UserStoryServiceImpl implements UserStoryService {
             userStoryObj.setProject(new Project(userStory.getProject().getId()));
         }
 
+        userStoryDao.persist(userStoryObj);
+
         if (userStory.getSprints() != null) {
 
-            List<Sprint> sprints = new ArrayList<>();
-            for (Sprint sprint : userStory.getSprints()) {
-                sprints.add(new Sprint(sprint.getId()));
+            for (Sprint sprintObj : userStory.getSprints()) {
+                Sprint sprintPersistObj = sprintDao.getSprint(sprintObj.getId());
+                if (sprintPersistObj.getUserStories() == null) {
+                    sprintPersistObj.setUserStories(new ArrayList<UserStory>());
+                }
+
+                sprintPersistObj.getUserStories().add(userStoryObj);
+                sprintDao.persist(sprintPersistObj);
+
             }
-            userStoryObj.setSprints(sprints);
         }
-        userStoryDao.persist(userStoryObj);
+
 
     }
 
