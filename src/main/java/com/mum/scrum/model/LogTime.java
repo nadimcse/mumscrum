@@ -19,7 +19,7 @@ public class LogTime {
     private long id;
     @NotEmpty
     private String lockedTime;
-    private User user;
+    private Date assignedDate;
 
 
     @Id
@@ -42,12 +42,13 @@ public class LogTime {
         this.lockedTime = lockedTime;
     }
 
-    @ManyToOne
-    public User getUser() {
-        return user;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(name = "assigned_date")
+    public Date getAssignedDate() {
+        return assignedDate;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
     }
 }

@@ -80,6 +80,7 @@ public class UserStoryServiceImpl implements UserStoryService {
         userStoryObj.setTitle(userStory.getTitle());
         userStoryObj.setDescription(userStory.getDescription());
         userStoryObj.setEstimation(userStory.getEstimation());
+        userStoryObj.setUser(userStory.getUser());
         if (userStory.getProject() != null) {
             userStoryObj.setProject(new Project(userStory.getProject().getId()));
         }
@@ -142,7 +143,7 @@ public class UserStoryServiceImpl implements UserStoryService {
         for (LogTime logTime : logTimes) {
             LogTime logTimeObj = new LogTime();
             logTimeObj.setLockedTime(logTime.getLockedTime());
-            logTimeObj.setUser(logTime.getUser());
+            logTimeObj.setAssignedDate(new Date());
             newLogTimeList.add(logTimeObj);
         }
 

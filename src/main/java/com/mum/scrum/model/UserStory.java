@@ -31,6 +31,7 @@ public class UserStory extends Persistent implements Serializable {
     private String estimation;
     @NotNull
     private Project project;
+    private User user;
     private UserStoryStatus userStoryStatus;
     private List<Sprint> sprints = new ArrayList<>();
     private List<LogTime> logTimes = new ArrayList<>();
@@ -116,5 +117,14 @@ public class UserStory extends Persistent implements Serializable {
 
     public void setUserStoryStatus(UserStoryStatus userStoryStatus) {
         this.userStoryStatus = userStoryStatus;
+    }
+
+    @ManyToOne
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
