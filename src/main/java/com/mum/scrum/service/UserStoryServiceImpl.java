@@ -14,9 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 984609 on 4/12/2016.
@@ -61,6 +59,21 @@ public class UserStoryServiceImpl implements UserStoryService {
     }
 
     @Override
+    public List<String> validateUserStoryLoad(long userStoryId) {
+        return validatePermission("canViewUserStory");
+    }
+
+    @Override
+    public Map<String, Object> handleGetUserStory(long userstoryId) {
+        Map<String, Object> map = new HashMap<>();
+        UserStory userStory = userStoryDao.getUserStory(userstoryId);
+        map.put("userStoryList", Arrays.asList(userStory));
+      //  map.put("sprintList", userStory.getSprints());
+      //  map.put("logTimeList", userStory.getLogTimes());
+        return map;
+    }
+
+    @Override
     public void updateUserStory(long userStoryId, UserStory userStory) {
         UserStory userStoryObj = userStoryDao.getUserStory(userStoryId);
         userStoryObj.setTitle(userStory.getTitle());
@@ -72,7 +85,7 @@ public class UserStoryServiceImpl implements UserStoryService {
 
         userStoryDao.persist(userStoryObj);
 
-        if (userStory.getSprints() != null) {
+        if (userStory.getSprints() != null) { //TODO save everything from one command
 
             for (Sprint sprintObj : userStory.getSprints()) {
                 Sprint sprintPersistObj = sprintDao.getSprint(sprintObj.getId());

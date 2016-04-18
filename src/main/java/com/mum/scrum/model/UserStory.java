@@ -88,11 +88,13 @@ public class UserStory extends Persistent implements Serializable {
         this.sprints = sprints;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //mappedby ?????
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //TODO mappedby ?????
+    @JsonIgnore
     public List<LogTime> getLogTimes() {
         return logTimes;
     }
 
+    @JsonProperty
     public void setLogTimes(List<LogTime> logTimes) {
         this.logTimes = logTimes;
     }

@@ -31,6 +31,21 @@ public class UserStoryController {
     @Autowired
     private FormValidatorService formValidatorService;
 
+    @RequestMapping(value = "/userstory/{userstoryId}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    public ResponseEntity<ViewModel> getUser(@PathVariable("userstoryId") long userstoryId) {
+
+
+        List<String> validations = userStoryService.validateUserStoryLoad(userstoryId);
+        if (hasAnyLogicalError(validations)) {
+            return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
+        }
+        Map<String, Object> dataMap = userStoryService.handleGetUserStory(userstoryId);
+        return new ResponseEntity<>(
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successful"), dataMap),
+                HttpStatus.OK);
+
+    }
+
 
     @RequestMapping(value = "/userstory", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public ResponseEntity<ViewModel> createUserStory(@Valid @RequestBody UserStory userStory, BindingResult bindResult) {

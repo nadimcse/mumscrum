@@ -9,4 +9,5 @@ public interface UserStoryDao {
 
     void persist(UserStory userStory);
     UserStory getUserStory(long userStoryId);
+
 }

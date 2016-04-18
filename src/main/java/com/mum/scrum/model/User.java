@@ -22,7 +22,7 @@ import java.util.List;
 public class User extends Persistent implements Serializable { //TODO create composite primary key
 
     private long id;
-    @NotEmpty(message = "error.first.name.is.empty")
+    @NotEmpty(message = "error.first.name.is.empty") //TODO read from property file
     private String firstName;
     private String lastName;
     private String password;
