@@ -74,7 +74,7 @@ public class Sprint extends Persistent implements Serializable {
         this.endDate = endDate;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="sprints_stories",
             joinColumns = @JoinColumn( name="sprint_id"),

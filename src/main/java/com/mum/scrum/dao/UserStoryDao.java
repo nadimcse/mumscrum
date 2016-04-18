@@ -7,6 +7,6 @@ import com.mum.scrum.model.UserStory;
  */
 public interface UserStoryDao {
 
-    void persistUserStory(UserStory userStory);
+    void persist(UserStory userStory);
     UserStory getUserStory(long userStoryId);
 }

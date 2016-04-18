@@ -34,6 +34,7 @@ public class UserStoryController {
 
     @RequestMapping(value = "/userstory", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public ResponseEntity<ViewModel> createUserStory(@Valid @RequestBody UserStory userStory, BindingResult bindResult) {
+
         //form validation
         if (bindResult.hasErrors()) {
             List<String> errorList = formValidatorService.doFormValidation(bindResult);
@@ -49,7 +50,7 @@ public class UserStoryController {
         if (userStory.getUserStoryStatus() == null) {
             userStory.setUserStoryStatus(new UserStoryStatus(1));
         }
-        userStoryService.persistUserStory(userStory);
+        userStoryService.persist(userStory);
         Map<String, Object> map = new HashMap<>();
         map.put("userStoryList", Arrays.asList(userStory));
         //TODO to uri

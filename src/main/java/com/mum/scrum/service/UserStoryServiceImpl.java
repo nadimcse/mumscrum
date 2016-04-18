@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by 984609 on 4/12/2016.
  */
-@Service("userStory")
+@Service("userStoryService")
 @Transactional
 public class UserStoryServiceImpl implements UserStoryService {
 
@@ -28,8 +28,8 @@ public class UserStoryServiceImpl implements UserStoryService {
     private UserStoryDao userStoryDao;
 
     @Override
-    public void persistUserStory(UserStory userStory) {
-        userStoryDao.persistUserStory(userStory);
+    public void persist(UserStory userStory) {
+        userStoryDao.persist(userStory);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UserStoryServiceImpl implements UserStoryService {
             }
             userStoryObj.setSprints(sprints);
         }
-        userStoryDao.persistUserStory(userStoryObj);
+        userStoryDao.persist(userStoryObj);
 
     }
 

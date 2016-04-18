@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserStoryService {
     List<String> validateUserStoryCreation(UserStory userStory);
     List<String> validateUserStoryUpdate(UserStory userStory);
-    void persistUserStory(UserStory userStory);
+    void persist(UserStory userStory);
     void updateUserStory(long userStoryId, UserStory userStory);
 }

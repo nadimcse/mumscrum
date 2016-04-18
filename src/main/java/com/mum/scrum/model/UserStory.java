@@ -35,6 +35,13 @@ public class UserStory extends Persistent implements Serializable {
     private List<Sprint> sprints = new ArrayList<>();
     private List<LogTime> logTimes = new ArrayList<>();
 
+    public UserStory() {
+    }
+
+    public UserStory(long id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
