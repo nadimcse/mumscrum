@@ -16,13 +16,16 @@ public class PermissionModel {
     static {
         permissionMap.put(1, getSystemAdminPermission());
         permissionMap.put(2, getProductOwnerPermission());
-        permissionMap.put(3, getProductOwnerPermission());
+        permissionMap.put(3, getScrumMasterPermission());
+        permissionMap.put(4, getDeveloperPermission());
     }
 
     private static String[] SYS_ADMIN_PERMISSION = new String[] {"canViewUser", "canCreateUser", "canDeleteUser", "canUpdateUser"};
     private static String[] PRODUCT_OWNER_PERMISSION = new String[] {"canViewProject", "canCreateProject", "canDeleteProject",
             "canUpdateProject", "canCreateUserStory", "canUpdateUserStory", "canDeleteUserStory"};
     private static String[] SCRUM_MASTER_PERMISSION = new String[] {"canViewUser", "canViewSprint", "canCreateSprint", "canDeleteSprint",
+            "canUpdateSprint", "canUpdateProject"};
+    private static String[] DEVELOPER_PERMISSION = new String[] {"canViewUser", "canViewSprint", "canCreateSprint", "canDeleteSprint",
             "canUpdateSprint", "canUpdateProject"};
 
     public static String[] getSystemAdminPermission() {
@@ -32,6 +35,9 @@ public class PermissionModel {
         return PRODUCT_OWNER_PERMISSION;
     }
     public static String[] getScrumMasterPermission() {
+        return SCRUM_MASTER_PERMISSION;
+    }
+    public static String[] getDeveloperPermission() {
         return SCRUM_MASTER_PERMISSION;
     }
 

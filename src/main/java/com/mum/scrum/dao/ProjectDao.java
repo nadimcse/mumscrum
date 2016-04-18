@@ -21,6 +21,7 @@ public interface ProjectDao {
     List<Project> getAllProjects();
     List<Project> getProjectsByProductOwner(long userId);
     List<Project> getProjectsByScrumMaster(long userId);
+    List<Project> getProjectsByDeveloper(long userId);
     List<Sprint> getAllSprints(long projectId);
     List<UserStory> getProductsBackLog();
     List<Project> getUserProjects(long userId);

@@ -31,6 +31,15 @@ public class DashBoardLoaderFactoryImpl extends DashBoardLoaderFactory {
     @Qualifier("productOwnerDashBoard")
     DashBoard productOwnerDashBoard;
 
+    @Autowired
+    @Qualifier("scrumMasterDashBoard")
+    DashBoard scrumMasterDashBoard;
+
+
+    @Autowired
+    @Qualifier("developerDashBoard")
+    DashBoard developerDashBoard;
+
     @Override
     DashBoard resolvedDashboard(Login login) {
 
@@ -42,6 +51,10 @@ public class DashBoardLoaderFactoryImpl extends DashBoardLoaderFactory {
             return systemAdminDashBoard;
         } else if (2 == role.getId()) {
             return productOwnerDashBoard;
+        } else if (3 == role.getId()) {
+            return scrumMasterDashBoard;
+        } else if (4 == role.getId()) {
+            return developerDashBoard;
         }
 
         return null;

@@ -5,6 +5,7 @@ import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.viewmodel.PermissionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 /**
  * Created by 984609 on 4/14/2016.
  */
+@Service("scrumMasterDashBoard")
 public class ScrumMasterDashBoard implements DashBoard {
 
     @Autowired

@@ -67,6 +67,14 @@ public class ProjectDaoImpl implements ProjectDao {
     }
 
     @Override
+    public List<Project> getProjectsByDeveloper(long userId) {
+        Query query = em.createQuery("SELECT distinct p FROM UserStory u, Project p where u.project.id = p.id and u.user.id = :userId")
+                .setParameter("userId", userId);
+        List<Project> projects =   (List<Project>) query.getResultList();
+        return projects;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<Sprint> getAllSprints(long projectId) {
         Query query = em.createQuery("SELECT s FROM Sprint s where s.id = :projectId")

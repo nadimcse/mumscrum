@@ -41,6 +41,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> getProjectsByDeveloper(long userId) {
+        return projectDao.getProjectsByDeveloper(userId);
+    }
+
+    @Override
     public void updateProject(long projectId, Project project) {
         Project projectObj = projectDao.getProject(projectId);
 
