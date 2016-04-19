@@ -1,7 +1,9 @@
 package com.mum.scrum.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -26,6 +28,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class PersistenceJPAConfig {
 
+    @Autowired
+    private Environment environment;
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -42,10 +47,20 @@ public class PersistenceJPAConfig {
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite:person_db.sqlite");
-        dataSource.setUsername( "" );
-        dataSource.setPassword( "" );
+
+        if ("sqLite".equals(environment.getProperty("sql.preference"))) {
+
+            dataSource.setDriverClassName(environment.getProperty("sqLite.drive.class"));
+            dataSource.setUrl(environment.getProperty("sqLite.drive.url"));
+            dataSource.setUsername(environment.getProperty("sqLite.drive.username"));
+            dataSource.setPassword(environment.getProperty("sqLite.drive.password"));
+        } else if ("mySql".equals(environment.getProperty("sql.preference"))) {
+
+            dataSource.setDriverClassName(environment.getProperty("mySql.drive.class"));
+            dataSource.setUrl(environment.getProperty("mySql.drive.url"));
+            dataSource.setUsername(environment.getProperty("mySql.drive.username"));
+            dataSource.setPassword( environment.getProperty("mySql.drive.password"));
+        }
         return dataSource;
     }
 

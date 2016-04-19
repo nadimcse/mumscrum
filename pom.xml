@@ -66,12 +66,12 @@
             <version>1.2</version>
         </dependency>
 
-    <!--    <dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.27</version>
-            &lt;!&ndash;<scope>provided</scope>&ndash;&gt;
-        </dependency>-->
+            <!--<scope>provided</scope>-->
+        </dependency>
 
         <!-- Jetty Dependencies -->
         <dependency>
