@@ -85,6 +85,10 @@ public class UserStoryServiceImpl implements UserStoryService {
             userStoryObj.setProject(new Project(userStory.getProject().getId()));
         }
 
+        if (userStory.getLogTimes() != null ) {
+            userStoryObj.setLogTimes(userStory.getLogTimes());
+        }
+
         userStoryDao.persist(userStoryObj);
 
         if (userStory.getSprints() != null) { //TODO save everything from one command
@@ -143,7 +147,7 @@ public class UserStoryServiceImpl implements UserStoryService {
         for (LogTime logTime : logTimes) {
             LogTime logTimeObj = new LogTime();
             logTimeObj.setLockedTime(logTime.getLockedTime());
-            logTimeObj.setAssignedDate(new Date());
+            logTimeObj.setAssignedDate(logTime.getAssignedDate());
             newLogTimeList.add(logTimeObj);
         }
 

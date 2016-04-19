@@ -89,7 +89,7 @@ public class UserStory extends Persistent implements Serializable {
         this.sprints = sprints;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //TODO mappedby ?????
+    @OneToMany(cascade = CascadeType.ALL) //TODO mappedby ?????
     @JsonIgnore
     public List<LogTime> getLogTimes() {
         return logTimes;

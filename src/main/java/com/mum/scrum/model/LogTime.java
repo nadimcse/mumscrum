@@ -17,9 +17,9 @@ import java.util.Date;
 public class LogTime {
 
     private long id;
-    @NotEmpty
+    //@NotEmpty
     private int lockedTime;
-    private Date assignedDate;
+    private Date assignedDate = new Date();
 
 
     @Id
