@@ -66,11 +66,11 @@ public class UserStoryController {
             userStory.setUserStoryStatus(new UserStoryStatus(1));
         }
         userStoryService.persist(userStory);
-        Map<String, Object> map = new HashMap<>();
-        map.put("userStoryList", Arrays.asList(userStory));
+
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("UserStory has been created successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("UserStory has been created successfully!"),
+                        userStoryService.handleGetUserStory(userStory.getId())),
                 HttpStatus.CREATED);
 
     }
@@ -89,11 +89,10 @@ public class UserStoryController {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
         }
         userStoryService.updateUserStory(userStoryId, userStory);
-        Map<String, Object> map = new HashMap<>();
-        map.put("userStoryList", Arrays.asList(userStory));
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("UserStory has been updated successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("UserStory has been updated successfully!"),
+                        userStoryService.handleGetUserStory(userStoryId)),
                 HttpStatus.OK);
 
     }

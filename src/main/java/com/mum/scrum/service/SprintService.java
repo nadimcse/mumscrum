@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public interface SprintService {
     void persist(Sprint sprint);
+    Sprint getSprint(long sprintId);
     List<String> validateSprintLoad(long sprintId);
     List<String> validateSprintCreation(Sprint sprint);
     List<String> validateSprintUpdate(Sprint sprint);

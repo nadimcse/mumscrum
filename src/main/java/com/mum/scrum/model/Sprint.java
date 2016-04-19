@@ -1,5 +1,8 @@
 package com.mum.scrum.model;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -74,6 +77,7 @@ public class Sprint extends Persistent implements Serializable {
         this.endDate = endDate;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="sprints_stories",
@@ -84,6 +88,7 @@ public class Sprint extends Persistent implements Serializable {
         return userStories;
     }
 
+    @JsonProperty
     public void setUserStories(List<UserStory> userStories) {
         this.userStories = userStories;
     }

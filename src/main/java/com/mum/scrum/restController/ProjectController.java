@@ -64,11 +64,11 @@ public class ProjectController {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
         }
         projectService.persist(project);
-        Map<String, Object> map = new HashMap<>();
-        map.put("projectList", Arrays.asList(project));
+
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been created successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been created successfully!"),
+                        projectService.handleGetProject(project.getId())),
                 HttpStatus.CREATED);
 
     }
@@ -88,11 +88,11 @@ public class ProjectController {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
         }
         projectService.updateProject(projectId, project);
-        Map<String, Object> map = new HashMap<>();
-        map.put("projectList", Arrays.asList(project));
+
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been updated successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been updated successfully!"),
+                        projectService.handleGetProject(projectId)),
                 HttpStatus.OK);
 
     }

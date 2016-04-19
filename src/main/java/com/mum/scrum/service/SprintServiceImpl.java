@@ -3,6 +3,7 @@ package com.mum.scrum.service;
 import com.mum.scrum.dao.SprintDao;
 import com.mum.scrum.model.Project;
 import com.mum.scrum.model.Sprint;
+import com.mum.scrum.model.UserStory;
 import com.mum.scrum.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class SprintServiceImpl implements SprintService {
     @Override
     public void persist(Sprint sprint) {
         sprintDao.persist(sprint);
+    }
+
+    @Override
+    public Sprint getSprint(long sprintId) {
+        return sprintDao.getSprint(sprintId);
     }
 
     @Override
@@ -80,7 +86,29 @@ public class SprintServiceImpl implements SprintService {
         Map<String, Object> map = new HashMap<>();
         Sprint sprint = sprintDao.getSprint(sprintId);
         map.put("sprintList", Arrays.asList(sprint));
-        map.put("userStoryList", sprint.getUserStories());
+        map.put("userStoryList", getRefinedUserStoryList(sprint));
         return map;
+    }
+
+    private List<UserStory> getRefinedUserStoryList(Sprint sprint) {
+
+        List<UserStory> userStories = new ArrayList<>();
+
+        if (sprint.getUserStories() != null && sprint.getUserStories().size() > 0) {
+            for (UserStory userStory : sprint.getUserStories()) {
+
+                UserStory userStoryObj = new UserStory();
+                userStoryObj.setId(userStory.getId());
+                userStoryObj.setUser(userStory.getUser());
+                userStoryObj.setTitle(userStory.getTitle());
+                userStoryObj.setProject(userStory.getProject());
+                userStoryObj.setEstimation(userStory.getEstimation());
+                userStoryObj.setDescription(userStory.getDescription());
+                userStoryObj.setUserStoryStatus(userStory.getUserStoryStatus());
+
+                userStories.add(userStoryObj);
+            }
+        }
+        return userStories;
     }
 }

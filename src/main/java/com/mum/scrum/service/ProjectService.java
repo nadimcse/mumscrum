@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public interface ProjectService {
     void persist(Project project);
+    Project getProject(long projectId);
     List<Project> getProjectsByProductOwner(long userId);
     List<Project> getProjectsByScrumMaster(long userId);
     List<Project> getProjectsByDeveloper(long userId);

@@ -63,11 +63,11 @@ public class SprintController {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
         }
         sprintService.persist(sprint);
-        Map<String, Object> map = new HashMap<>();
-        map.put("sprintList", Arrays.asList(sprint));
+
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been created successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Project has been created successfully!"),
+                        sprintService.handleGetSprint(sprint.getId())),
                 HttpStatus.CREATED);
 
     }
@@ -86,11 +86,11 @@ public class SprintController {
             return new ResponseEntity<>(Utility.populateViewModel(Utility.ERROR_STATUS_CODE, validations), HttpStatus.BAD_REQUEST);
         }
         sprintService.updateSprint(sprintId, sprint);
-        Map<String, Object> map = new HashMap<>();
-        map.put("sprintList", Arrays.asList(sprint));
+
         //TODO to uri
         return new ResponseEntity<>(
-                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Sprint has been updated successfully!"), map),
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Sprint has been updated successfully!"),
+                        sprintService.handleGetSprint(sprintId)),
                 HttpStatus.OK);
 
     }
