@@ -111,4 +111,9 @@ public class SprintServiceImpl implements SprintService {
         }
         return userStories;
     }
+
+    @Override
+    public Map<String, Object> reportGeneraor(long sprintId) {
+        return null;
+    }
 }

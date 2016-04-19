@@ -17,5 +17,6 @@ public interface SprintService {
     void updateSprint(long sprintId, Sprint sprint);
     List<Sprint> getAllSprints(long projectId);
     Map<String, Object> handleGetSprint(long sprintId);
+    Map<String, Object> reportGeneraor(long sprintId);
 
 }

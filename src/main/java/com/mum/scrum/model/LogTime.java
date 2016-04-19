@@ -18,7 +18,7 @@ public class LogTime {
 
     private long id;
     @NotEmpty
-    private String lockedTime;
+    private int lockedTime;
     private Date assignedDate;
 
 
@@ -33,12 +33,14 @@ public class LogTime {
         this.id = id;
     }
 
+
+
     @Column(name = "locked_time")
-    public String getLockedTime() {
+    public int getLockedTime() {
         return lockedTime;
     }
 
-    public void setLockedTime(String lockedTime) {
+    public void setLockedTime(int lockedTime) {
         this.lockedTime = lockedTime;
     }
 

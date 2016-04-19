@@ -27,8 +27,8 @@ public class UserStory extends Persistent implements Serializable {
     @NotEmpty
     private String title;
     private String description;
-    @NotEmpty
-    private String estimation;
+  //  @NotEmpty
+    private int estimation;
     @NotNull
     private Project project;
     private User user;
@@ -70,11 +70,11 @@ public class UserStory extends Persistent implements Serializable {
         this.description = description;
     }
 
-    public String getEstimation() {
+    public int getEstimation() {
         return estimation;
     }
 
-    public void setEstimation(String estimation) {
+    public void setEstimation(int estimation) {
         this.estimation = estimation;
     }
 
