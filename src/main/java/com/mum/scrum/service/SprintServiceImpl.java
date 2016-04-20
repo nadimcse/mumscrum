@@ -128,13 +128,13 @@ public class SprintServiceImpl implements SprintService {
         return reportGeneratorImpl(sprintId);
     }
 
-    @Transactional(rollbackFor = Exception.class) //this is because bug of sqlite
+    @Transactional(rollbackFor = Exception.class) //this may be bug of sqlite
     private Map<String, Object> reportGeneratorImpl(long sprintId) {
 
         Map<String, Object> map = new HashMap<>();
         try {
-            map.put("days", sprintDao.getTotalLogTimeByDays(sprintId));
-            map.put("total", sprintDao.getTotalEstimation(sprintId));
+            map.put("compleatedHours", sprintDao.getTotalLogTimeByDays(sprintId));
+            map.put("totalEstimatedHours", sprintDao.getTotalEstimation(sprintId));
             return map;
         } catch (Exception e) {
             e.printStackTrace();
