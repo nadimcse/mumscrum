@@ -25,8 +25,8 @@ public class PermissionModel {
             "canUpdateProject", "canCreateUserStory", "canUpdateUserStory", "canDeleteUserStory"};
     private static String[] SCRUM_MASTER_PERMISSION = new String[] {"canViewUser", "canViewSprint", "canCreateSprint", "canDeleteSprint",
             "canUpdateSprint", "canUpdateProject"};
-    private static String[] DEVELOPER_PERMISSION = new String[] {"canViewUser", "canViewSprint", "canCreateSprint", "canDeleteSprint",
-            "canUpdateSprint", "canUpdateProject"};
+    private static String[] DEVELOPER_PERMISSION = new String[] {"canViewUser", "canViewSprint", "canUpdateUserStory", "canViewUserStory",
+            "canUpdateSprint"};
 
     public static String[] getSystemAdminPermission() {
         return SYS_ADMIN_PERMISSION;
@@ -38,7 +38,7 @@ public class PermissionModel {
         return SCRUM_MASTER_PERMISSION;
     }
     public static String[] getDeveloperPermission() {
-        return SCRUM_MASTER_PERMISSION;
+        return DEVELOPER_PERMISSION;
     }
 
 
