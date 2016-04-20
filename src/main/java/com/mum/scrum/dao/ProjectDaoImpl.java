@@ -77,7 +77,7 @@ public class ProjectDaoImpl implements ProjectDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Sprint> getAllSprints(long projectId) {
-        Query query = em.createQuery("SELECT s FROM Sprint s where s.id = :projectId")
+        Query query = em.createQuery("SELECT s FROM Sprint s where s.project.id = :projectId")
                 .setParameter("projectId", projectId);
         return  (List<Sprint>)query.getResultList();
     }
