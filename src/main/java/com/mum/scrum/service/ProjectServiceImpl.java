@@ -55,6 +55,12 @@ public class ProjectServiceImpl implements ProjectService {
         Project projectObj = projectDao.getProject(projectId);
 
         projectObj.setName(project.getName());
+        if (project.getStartDate() != null) {
+            projectObj.setStartDate(project.getStartDate());
+        }
+        if (project.getEndDate() != null) {
+            projectObj.setEndDate(project.getEndDate());
+        }
         if (project.getManagedBy() != null) {
             projectObj.setManagedBy(new User(project.getManagedBy().getId()));
         }

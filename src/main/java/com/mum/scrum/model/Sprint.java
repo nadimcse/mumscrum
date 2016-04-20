@@ -1,8 +1,12 @@
 package com.mum.scrum.model;
 
+import com.mum.scrum.config.CustomDateDeserializer;
+import com.mum.scrum.config.CustomDateSerializer;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -58,21 +62,25 @@ public class Sprint extends Persistent implements Serializable {
     }
 
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     @Column(name = "start_date")
     public Date getStartDate() {
         return startDate;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     @Column(name = "end_date")
     public Date getEndDate() {
         return endDate;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }

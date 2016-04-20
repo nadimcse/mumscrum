@@ -1,5 +1,8 @@
 package com.mum.scrum.model;
 
+import com.mum.scrum.config.CustomDateSerializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -24,6 +27,7 @@ public class LogTime {
     //@NotEmpty
     private int lockedTime;
     private Date assignedDate = new Date();
+    @JsonIgnore
     private String assignedDateStr;
 
 
@@ -55,6 +59,7 @@ public class LogTime {
         return assignedDate;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public void setAssignedDate(Date assignedDate) {
         this.assignedDate = assignedDate;
     }
