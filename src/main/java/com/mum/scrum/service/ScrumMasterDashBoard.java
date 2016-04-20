@@ -33,6 +33,7 @@ public class ScrumMasterDashBoard implements DashBoard {
         map.put("projectList", projectService.getProjectsByScrumMaster(user.getId()));
         map.put("token", tokenGeneratorService.generateToken(user));
         map.put("individual", user);
+        map.put("userList", userService.getAllUsers());
         map.put("permission", PermissionModel.getScrumMasterPermission());
 
         return map;

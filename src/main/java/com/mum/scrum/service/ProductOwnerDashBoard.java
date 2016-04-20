@@ -38,6 +38,7 @@ public class ProductOwnerDashBoard implements DashBoard {
         dataMap.put("projectList", projectService.getProjectsByProductOwner(user.getId()));
         dataMap.put("token", tokenGeneratorService.generateToken(user));
         dataMap.put("individual", user);
+        dataMap.put("userList", userService.getAllUsers());
         dataMap.put("permission", PermissionModel.getProductOwnerPermission());
         return dataMap;
     }
