@@ -1,7 +1,9 @@
 package com.mum.scrum.model;
 
+import com.mum.scrum.config.CustomDateDeserializer;
 import com.mum.scrum.config.CustomDateSerializer;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -55,6 +57,7 @@ public class LogTime {
 
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "assigned_date")
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     public Date getAssignedDate() {
         return assignedDate;
     }
