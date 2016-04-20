@@ -22,14 +22,14 @@ import java.util.List;
 public class User extends Persistent implements Serializable { //TODO create composite primary key
 
     private long id;
-    @NotEmpty(message = "error.first.name.is.empty") //TODO read from property file
+    @NotEmpty(message = "First name is required.") //TODO read from property file
     private String firstName;
     private String lastName;
     private String password;
-    @NotEmpty
+    @NotEmpty(message = "Email is required.")
     private String email;
    // private Project project;
-    @NotNull
+    @NotNull(message = "Role is required")
     private Role role;
 
     public User() {

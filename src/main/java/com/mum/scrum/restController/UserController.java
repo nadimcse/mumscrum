@@ -85,7 +85,7 @@ public class UserController {
 
         userService.persistUser(user);
         Map<String, Object> map = new HashMap<>();
-        map.put("userList", Arrays.asList(user));
+        map.put("userList", Arrays.asList(userService.getUser(user.getId())));
         //TODO to uri
         return new ResponseEntity<>(
                 Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("User has been created successfully!"), map),
@@ -114,7 +114,6 @@ public class UserController {
 
         userService.updateUser(userId, user);
         user = userService.getUser(userId);
-        user.setRole(new Role(user.getRole().getId(), user.getRole().getName()));
 
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("userList", Arrays.asList(user));
