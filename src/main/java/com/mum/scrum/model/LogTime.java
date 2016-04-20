@@ -3,6 +3,8 @@ package com.mum.scrum.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +17,8 @@ import java.util.Date;
 @Entity
 @Table(name = "log_time")
 public class LogTime {
+
+    private DateFormat format = new SimpleDateFormat("MM-dd-yyyy");
 
     private long id;
     //@NotEmpty
@@ -57,7 +61,7 @@ public class LogTime {
 
     @Column(name = "assigned_date_str")
     public String getAssignedDateStr() {
-        return assignedDateStr;
+        return format.format(this.getAssignedDate());
     }
 
     public void setAssignedDateStr(String assignedDateStr) {

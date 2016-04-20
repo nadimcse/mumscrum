@@ -90,7 +90,11 @@ public class UserStoryServiceImpl implements UserStoryService {
         }
 
         if (userStory.getLogTimes() != null ) {
-            userStoryObj.setLogTimes(userStory.getLogTimes());
+            if (userStoryObj.getLogTimes() == null) {
+                userStoryObj.setLogTimes(new ArrayList<LogTime>());
+            }
+            userStoryObj.getLogTimes().clear();
+            userStoryObj.getLogTimes().addAll(userStory.getLogTimes());
         }
 
         userStoryDao.persist(userStoryObj);
@@ -153,7 +157,7 @@ public class UserStoryServiceImpl implements UserStoryService {
             LogTime logTimeObj = new LogTime();
             logTimeObj.setLockedTime(logTime.getLockedTime());
             logTimeObj.setAssignedDate(logTime.getAssignedDate());
-            logTimeObj.setAssignedDateStr(dateFormat.format(logTime.getAssignedDate()));
+            //logTimeObj.setAssignedDateStr(dateFormat.format(logTime.getAssignedDate()));
             newLogTimeList.add(logTimeObj);
         }
 
