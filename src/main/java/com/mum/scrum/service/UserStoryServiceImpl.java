@@ -15,6 +15,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -23,6 +25,8 @@ import java.util.*;
 @Service("userStoryService")
 @Transactional
 public class UserStoryServiceImpl implements UserStoryService {
+
+    private DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 
     @Autowired
     private UserStoryDao userStoryDao;
@@ -99,6 +103,7 @@ public class UserStoryServiceImpl implements UserStoryService {
                     sprintPersistObj.setUserStories(new ArrayList<UserStory>());
                 }
 
+                sprintPersistObj.getUserStories().clear();
                 sprintPersistObj.getUserStories().add(userStoryObj);
                 sprintDao.persist(sprintPersistObj);
 
@@ -148,6 +153,7 @@ public class UserStoryServiceImpl implements UserStoryService {
             LogTime logTimeObj = new LogTime();
             logTimeObj.setLockedTime(logTime.getLockedTime());
             logTimeObj.setAssignedDate(logTime.getAssignedDate());
+            logTimeObj.setAssignedDateStr(dateFormat.format(logTime.getAssignedDate()));
             newLogTimeList.add(logTimeObj);
         }
 

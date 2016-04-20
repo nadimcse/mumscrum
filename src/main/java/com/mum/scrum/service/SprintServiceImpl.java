@@ -72,6 +72,12 @@ public class SprintServiceImpl implements SprintService {
         if (sprint.getProject() != null) {
             sprintObj.setProject(new Project(sprint.getProject().getId()));
         }
+        if (sprint.getUserStories() != null) {
+            if (sprintObj.getUserStories() != null) {
+                sprintObj.getUserStories().clear();
+            }
+            sprintObj.getUserStories().addAll(sprint.getUserStories());
+        }
         sprintDao.persist(sprintObj);
 
     }

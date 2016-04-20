@@ -20,6 +20,7 @@ public class LogTime {
     //@NotEmpty
     private int lockedTime;
     private Date assignedDate = new Date();
+    private String assignedDateStr;
 
 
     @Id
@@ -52,5 +53,14 @@ public class LogTime {
 
     public void setAssignedDate(Date assignedDate) {
         this.assignedDate = assignedDate;
+    }
+
+    @Column(name = "assigned_date_str")
+    public String getAssignedDateStr() {
+        return assignedDateStr;
+    }
+
+    public void setAssignedDateStr(String assignedDateStr) {
+        this.assignedDateStr = assignedDateStr;
     }
 }
