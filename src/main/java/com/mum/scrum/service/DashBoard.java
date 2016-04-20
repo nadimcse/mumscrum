@@ -1,5 +1,6 @@
 package com.mum.scrum.service;
 
+import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.Login;
 
 import java.util.Map;
@@ -12,5 +13,5 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface DashBoard {
-     Map<String, Object> populateData(Login login);
+     Map<String, Object> populateData(User user);
 }

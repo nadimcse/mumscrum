@@ -33,13 +33,13 @@ public class SystemAdminDashBoard implements DashBoard {
     private TokenGeneratorService tokenGeneratorService;
 
     @Override
-    public Map<String, Object> populateData(Login login) {
+    public Map<String, Object> populateData(User user) {
         Map<String, Object> map = new HashMap<>();
         List<User> userList = userService.getAllUsers();
 
         map.put("userList", userList);
-        map.put("token", tokenGeneratorService.generateToken(userService.getUser(login.getEmail())));
-        map.put("individual", userService.getUser(login.getEmail()));
+        map.put("token", tokenGeneratorService.generateToken(user));
+        map.put("individual", user);
         map.put("permission", PermissionModel.getSystemAdminPermission());
 
         return map;

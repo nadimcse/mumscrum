@@ -37,9 +37,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Map<String, Object> handleDashBoard(Login login) {
+    public Map<String, Object> handleDashBoard(User user) {
         //DashBoardLoaderFactory dashBoardLoader = new DashBoardLoaderFactoryImpl();
-        return dashBoardLoaderFactory.loadDashboard(login);
+        return dashBoardLoaderFactory.loadDashboard(user);
 
     }
 }

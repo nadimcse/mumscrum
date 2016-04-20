@@ -41,10 +41,7 @@ public class DashBoardLoaderFactoryImpl extends DashBoardLoaderFactory {
     DashBoard developerDashBoard;
 
     @Override
-    DashBoard resolvedDashboard(Login login) {
-
-        User user = userDao.getUser(login.getEmail());
-
+    DashBoard resolvedDashboard(User user) {
 
         Role role = user.getRole();
         if (1 == role.getId()) {

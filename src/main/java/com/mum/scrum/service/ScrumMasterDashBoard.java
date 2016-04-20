@@ -27,10 +27,8 @@ public class ScrumMasterDashBoard implements DashBoard {
     private ProjectService projectService;
 
     @Override
-    public Map<String, Object> populateData(Login login) {
+    public Map<String, Object> populateData(User user) {
         Map<String, Object> map = new HashMap<>();
-
-        User user = userService.getUser(login.getEmail());
 
         map.put("projectList", projectService.getProjectsByScrumMaster(user.getId()));
         map.put("token", tokenGeneratorService.generateToken(user));

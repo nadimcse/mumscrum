@@ -1,5 +1,6 @@
 package com.mum.scrum.service;
 
+import com.mum.scrum.model.User;
 import com.mum.scrum.viewmodel.Login;
 
 import java.util.Map;
@@ -13,13 +14,13 @@ import java.util.Map;
  */
 public abstract class DashBoardLoaderFactory {
 
-    public Map<String, Object> loadDashboard(Login login) {
+    public Map<String, Object> loadDashboard(User user) {
 
-        DashBoard dashBoard = resolvedDashboard(login);
-        return dashBoard.populateData(login);
+        DashBoard dashBoard = resolvedDashboard(user);
+        return dashBoard.populateData(user);
 
     }
 
-    abstract DashBoard resolvedDashboard(Login login);
+    abstract DashBoard resolvedDashboard(User user);
 
 }

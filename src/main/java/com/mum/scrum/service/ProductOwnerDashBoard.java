@@ -33,9 +33,8 @@ public class ProductOwnerDashBoard implements DashBoard {
 
 
     @Override
-    public Map<String, Object> populateData(Login login) {
+    public Map<String, Object> populateData(User user) {
         Map<String, Object> dataMap = new HashMap<>();
-        User user = userService.getUser(login.getEmail());
         dataMap.put("projectList", projectService.getProjectsByProductOwner(user.getId()));
         dataMap.put("token", tokenGeneratorService.generateToken(user));
         dataMap.put("individual", user);

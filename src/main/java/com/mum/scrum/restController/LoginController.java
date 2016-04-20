@@ -1,7 +1,9 @@
 package com.mum.scrum.restController;
 
+import com.mum.scrum.model.User;
 import com.mum.scrum.service.FormValidatorService;
 import com.mum.scrum.service.LoginService;
+import com.mum.scrum.service.UserService;
 import com.mum.scrum.utility.Utility;
 import com.mum.scrum.viewmodel.Login;
 import com.mum.scrum.viewmodel.ViewModel;
@@ -33,6 +35,9 @@ public class LoginController {
     private LoginService loginService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private FormValidatorService formValidatorService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -40,7 +45,7 @@ public class LoginController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-        @RequestMapping(value = "/login", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE} , method = RequestMethod.POST)
+    @RequestMapping(value = "/login", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE} , method = RequestMethod.POST)
     public ResponseEntity<ViewModel> loginUser(@Valid @RequestBody Login login, BindingResult bindResult) {
         if (bindResult.hasErrors()) {
             List<String> errorList = formValidatorService.doFormValidation(bindResult);
@@ -52,7 +57,8 @@ public class LoginController {
                     HttpStatus.FORBIDDEN);
         }
         ///TODO  load dashboard
-        Map<String, Object> map  = loginService.handleDashBoard(login);
+        User user = userService.getUser(login.getEmail());
+        Map<String, Object> map  = loginService.handleDashBoard(user);
 
         return new ResponseEntity<>(Utility.populateViewModel(
                 Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successfully logged in"), map),
