@@ -24,12 +24,12 @@ import java.util.List;
 public class UserStory extends Persistent implements Serializable {
 
     private long id;
-    @NotEmpty
+    @NotEmpty(message = "Title is required.")
     private String title;
     private String description;
   //  @NotEmpty
     private int estimation;
-    @NotNull
+    @NotNull(message = "Project is required.")
     private Project project;
     private User user;
     private UserStoryStatus userStoryStatus;

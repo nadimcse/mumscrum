@@ -28,7 +28,7 @@ import java.util.List;
 public class Sprint extends Persistent implements Serializable {
 
     private long id;
-    @NotEmpty
+    @NotEmpty(message = "Sprint name is required.")
     private String name;
     private Date startDate;
     private Date endDate;

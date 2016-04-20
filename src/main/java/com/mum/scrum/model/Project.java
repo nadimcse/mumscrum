@@ -24,7 +24,7 @@ import java.util.List;
 @Table(name = "project")
 public class Project extends Persistent implements Serializable {
     private long id;
-    @NotEmpty
+    @NotEmpty(message = "Project name is required.")
     private String name;
 
     private Date startDate;
