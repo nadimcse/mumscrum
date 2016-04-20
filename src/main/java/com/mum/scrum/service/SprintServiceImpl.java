@@ -20,18 +20,19 @@ import java.util.*;
  * Created by 984609 on 4/12/2016.
  */
 @Service("sprintService")
-@Transactional
 public class SprintServiceImpl implements SprintService {
 
     @Autowired
     private SprintDao sprintDao;
 
     @Override
+    @Transactional
     public void persist(Sprint sprint) {
         sprintDao.persist(sprint);
     }
 
     @Override
+    @Transactional
     public Sprint getSprint(long sprintId) {
         return sprintDao.getSprint(sprintId);
     }
@@ -66,6 +67,7 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
+    @Transactional
     public void updateSprint(long sprintId, Sprint sprint) {
         Sprint sprintObj = sprintDao.getSprint(sprintId);
         sprintObj.setName(sprint.getName());
@@ -84,11 +86,13 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
+    @Transactional
     public List<Sprint> getAllSprints(long projectId) {
         return sprintDao.getAllSprints(projectId);
     }
 
     @Override
+    @Transactional
     public Map<String, Object> handleGetSprint(long sprintId) {
         Map<String, Object> map = new HashMap<>();
         Sprint sprint = sprintDao.getSprint(sprintId);
@@ -121,11 +125,24 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     public Map<String, Object> reportGeneraor(long sprintId) {
+        return reportGeneratorImpl(sprintId);
+    }
+
+    @Transactional(rollbackFor = Exception.class) //this is because bug of sqlite
+    private Map<String, Object> reportGeneratorImpl(long sprintId) {
+
         Map<String, Object> map = new HashMap<>();
-        map.put("days", sprintDao.getTotalLogTimeByDays(sprintId));
-        map.put("total", sprintDao.getTotalEstimation(sprintId));
+        try {
+            map.put("days", sprintDao.getTotalLogTimeByDays(sprintId));
+            map.put("total", sprintDao.getTotalEstimation(sprintId));
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return map;
 
     }
+
+
 }
