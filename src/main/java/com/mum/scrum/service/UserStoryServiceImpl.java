@@ -99,7 +99,7 @@ public class UserStoryServiceImpl implements UserStoryService {
 
         userStoryDao.persist(userStoryObj);
 
-        if (userStory.getSprints() != null) { //TODO save everything from one command
+     /*   if (userStory.getSprints() != null) { //TODO save everything from one command
 
             for (Sprint sprintObj : userStory.getSprints()) {
                 Sprint sprintPersistObj = sprintDao.getSprint(sprintObj.getId());
@@ -112,7 +112,7 @@ public class UserStoryServiceImpl implements UserStoryService {
                 sprintDao.persist(sprintPersistObj);
 
             }
-        }
+        }*/
 
 
     }

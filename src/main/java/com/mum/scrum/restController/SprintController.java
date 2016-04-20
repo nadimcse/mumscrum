@@ -50,6 +50,19 @@ public class SprintController {
 
     }
 
+    @RequestMapping(value = "/sprint/report/{sprintId}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    public ResponseEntity<ViewModel> generateReport(@PathVariable("sprintId") long sprintId) {
+
+
+
+        Map<String, Object> dataMap = sprintService.reportGeneraor(sprintId);
+        return new ResponseEntity<>(
+                Utility.populateViewModel(Utility.SUCCESS_STATUS_CODE, Arrays.asList("Successful"), dataMap),
+                HttpStatus.OK);
+
+    }
+
+
     @RequestMapping(value = "/sprint", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public ResponseEntity<ViewModel> createSprint(@Valid @RequestBody Sprint sprint, BindingResult bindResult) {
         //form validation

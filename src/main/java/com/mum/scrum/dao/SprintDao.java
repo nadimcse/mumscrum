@@ -11,5 +11,7 @@ public interface SprintDao {
     void persist(Sprint sprint);
     Sprint getSprint(long sprintId);
     List<Sprint> getAllSprints(long projectId);
+    List<Integer> getTotalLogTimeByDays(long sprintId);
+    int getTotalEstimation(long sprintId);
 
 }

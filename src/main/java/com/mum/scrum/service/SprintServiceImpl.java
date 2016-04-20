@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -120,6 +121,11 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     public Map<String, Object> reportGeneraor(long sprintId) {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("days", sprintDao.getTotalLogTimeByDays(sprintId));
+        map.put("total", sprintDao.getTotalEstimation(sprintId));
+
+        return map;
+
     }
 }
