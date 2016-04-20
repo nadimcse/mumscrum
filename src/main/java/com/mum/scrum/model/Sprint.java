@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class Sprint extends Persistent implements Serializable {
     private String name;
     private Date startDate;
     private Date endDate;
+    @NotNull(message = "Project id required")
     private Project project;
     private List<UserStory> userStories = new ArrayList<>();
 
